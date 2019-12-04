@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/message_linear"
+              android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:layout_margin="10dp"
+              android:background="@color/xui_config_color_pressed"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal">
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/message_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:gravity="center_horizontal"
+                app:riv_border_color="@color/xui_config_color_gray_6"
+                app:riv_border_width="1px"
+                app:riv_is_circle="true"
+                app:riv_selected_border_color="@color/xui_config_color_gray_4"
+                app:riv_selected_border_width="0px"
+                app:riv_selected_mask_color="@color/xui_config_color_gray_8"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_weight="6"
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+        <TextView
+                android:id="@+id/name"
+                android:layout_weight="5"
+
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+        <TextView
+                android:id="@+id/message_content"
+                android:layout_weight="4"
+                android:textColor="@color/xui_config_color_title_text"
+                android:layout_width="match_parent"
+                android:textSize="13sp"
+                android:maxLength="20"
+                android:layout_height="0dp"/>
+    </LinearLayout>
+    <LinearLayout
+
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+        <TextView
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:id="@+id/data"
+                android:textSize="13sp"
+                android:gravity="fill_horizontal"
+                android:layout_width="match_parent"
+                android:textColor="@color/xui_config_color_title_text"/>
+        <View
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:gravity="fill_horizontal"
+                android:id="@+id/message_num"
+                android:layout_width="50dp"/>
+    </LinearLayout>
+</LinearLayout>

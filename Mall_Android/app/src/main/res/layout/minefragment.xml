@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/xui_config_color_pressed"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:background="#3C3F41"
+            android:layout_width="100dp"
+            android:layout_height="match_parent">
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/arrows_r"
+                app:riv_border_color="@color/xui_config_color_gray_6"
+                app:riv_border_width="1px"
+                app:riv_is_circle="true"
+                app:riv_selected_border_color="@color/xui_config_color_gray_4"
+                app:riv_selected_border_width="1px"
+                app:riv_selected_mask_color="@color/xui_config_color_gray_8"/>
+    </LinearLayout>
+    <TextView
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="江崇杰"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <ImageView
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

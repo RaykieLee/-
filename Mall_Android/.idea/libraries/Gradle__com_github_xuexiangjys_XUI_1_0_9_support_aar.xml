@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.xuexiangjys:XUI:1.0.9-support@aar">
+    <ANNOTATIONS>
+      <root url="jar://D:/Android/gradle/caches/transforms-2/files-2.1/53ab626e6d624e13e3e33034d506cdae/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://D:/Android/gradle/caches/transforms-2/files-2.1/53ab626e6d624e13e3e33034d506cdae/jars/classes.jar!/" />
+      <root url="file://D:/Android/gradle/caches/transforms-2/files-2.1/53ab626e6d624e13e3e33034d506cdae/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/Android/gradle/caches/modules-2/files-2.1/com.github.xuexiangjys/XUI/1.0.9-support/a685c0d4d9119380a6929740bcd81b36235f3a2f/XUI-1.0.9-support-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
