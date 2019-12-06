@@ -1,6 +1,7 @@
 package com.example.mall.mapper;
 
 import com.example.mall.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -13,7 +14,8 @@ public interface UserMapper {
 //
 //    public List<User> ListUser();
 //
-//    public int insertUser(User user);
+    @Insert("INSERT INTO user (name, sex, tel, address, state, registration_date, account, password, headsculpture) VALUES ( #{id},#{id},#{id},#{id},#{id},#{id},#{id},#{id},#{id},#{id},#{id});")
+    public int insertUser(User user);
 //
 //    public int delete(int id);
 //

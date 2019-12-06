@@ -26,11 +26,9 @@ import butterknife.ButterKnife;
 
 import static com.xuexiang.xui.XUI.getContext;
 
-public class CommodityRecyclerlistAdapter extends RecyclerView.Adapter<CommodityRecyclerlistAdapter.MyViewHolder> {
+public class CommodityRecyclerlistAdapter extends RecyclerView.Adapter<CommodityRecyclerlistAdapter.MyViewHolder>  {
     private static final String TAG = "MyAdapter";
-
-
-    private onRecyclerViewListener onRecyclerViewListener;
+    public onRecyclerViewListener onRecyclerViewListener;
     private List<CommodityBean> mList;
     private Context context;
 
@@ -63,11 +61,12 @@ public class CommodityRecyclerlistAdapter extends RecyclerView.Adapter<Commodity
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "点击了" + position, Toast.LENGTH_LONG).show();
+                onRecyclerViewListener.onclick(position);
             }
         });
 
     }
+
 
     @Override
     public int getItemCount() {
@@ -78,10 +77,9 @@ public class CommodityRecyclerlistAdapter extends RecyclerView.Adapter<Commodity
         this.onRecyclerViewListener = onRecyclerViewListener;
     }
 
-    interface onRecyclerViewListener {
-        void editHeadIcon(int position);
+    public  interface onRecyclerViewListener {
+        void onclick(int position);
 
-        void deleteInfo(int position);
     }
 
 

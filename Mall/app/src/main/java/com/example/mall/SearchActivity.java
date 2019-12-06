@@ -1,11 +1,13 @@
 package com.example.mall;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mall.adapter.CommodityRecyclerlistAdapter;
 import com.example.mall.adapter.FlowTagAdapter;
@@ -120,17 +122,14 @@ public class SearchActivity extends AppCompatActivity {
         // RecyclerView比ListView相比优点在于可定制强，
         // 也正是由于RecyclerView的可定制性太强，好多功能实现都需要自己来写，
         // RecyclerView不像ListView给开发者提供了setOnItemClickListener()方法，但是要实现监听也不难实现，
-//        myAdapter.setOnRecyclerViewListener(new MessageRecyclerlistAdapter.onRecyclerViewListener() {
-//            @Override
-//            public void editHeadIcon(int position) {
-//
-//            }
-//
-//            @Override
-//            public void deleteInfo(int position) {
-//
-//            }
-//        });
+        myAdapter.setOnRecyclerViewListener(new CommodityRecyclerlistAdapter.onRecyclerViewListener() {
+            @Override
+            public void onclick(int position) {
+                Intent intent = new Intent(SearchActivity.this,GoodsDetailActivity.class);
+                Toast.makeText(getContext(),"dia",Toast.LENGTH_LONG).show();
+                startActivity(intent);
+            }
+        });
     }
 
     private void initFlowTagLayout() {

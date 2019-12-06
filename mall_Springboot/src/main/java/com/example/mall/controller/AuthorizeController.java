@@ -20,7 +20,7 @@ public class AuthorizeController {
 
     @Autowired
     private UserMapper userMapper;
-    @ApiOperation("根据用户名获取用户列表")
+    @ApiOperation("根据用户名获取用户列表~~")
     @ResponseBody
     @GetMapping("/callback")
     public String Callback(@RequestParam(name = "name") String id) {

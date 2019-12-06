@@ -5,6 +5,7 @@ android {
     defaultConfig {
         applicationId "com.example.mall"
         minSdkVersion 17
+        vectorDrawables.useSupportLibrary = true
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
