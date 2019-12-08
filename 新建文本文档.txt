@@ -1,0 +1,11 @@
+
+1. 输入 
+$ rm -f .gitindex
+出现
+
+ssss@DESKTOP-ssssMINGW64 eprojectssss(master)
+
+
+
+2. 再输入
+$ git reset
