@@ -22,7 +22,7 @@ public class AuthorizeController {
 
     @Autowired
     private UserMapper userMapper;
-    @ApiOperation("根据用户名获取用户列表~~")
+    @ApiOperation("根据用户名获取用户列表")
     @ResponseBody
     @PostMapping("/selectUserbyid")
     public String Callback(@RequestParam(name = "id") String id) {

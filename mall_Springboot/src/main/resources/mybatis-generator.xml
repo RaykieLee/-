@@ -21,7 +21,11 @@
 
         <javaClientGenerator targetPackage="com.example.mall.mapper" targetProject="src/main/java" type="ANNOTATEDMAPPER"></javaClientGenerator>
 
+
         <table tableName="user" >
+            <property name="modelOnly" value="false"/>
+        </table>
+        <table tableName="goods" >
             <property name="modelOnly" value="false"/>
         </table>
         <table tableName="goods" >

@@ -2,7 +2,8 @@ package com.example.mall.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+import org.springframework.stereotype.Component;
+@Component
 public class User implements Serializable {
     /**
      *
@@ -341,4 +342,6 @@ public class User implements Serializable {
     public void setHeadsculpture(String headsculpture) {
         this.headsculpture = headsculpture;
     }
+
+
 }

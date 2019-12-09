@@ -25,7 +25,7 @@ public class GoodsController {
     private GoodsMapper goodsMapper;
 
 
-    @ApiOperation("根据用户名获取用户列表~~")
+    @ApiOperation("根据商品名获取商品列表")
     @ResponseBody
     @PostMapping("/selectGoodsbyid")
     public String Callback(@RequestParam(name = "name") String name) {
