@@ -1,6 +1,15 @@
 ##笔记
 ### Mybatis Generator插件 
+### 涉及技术及框架         
 
+|技术 | 说明 | 官网 |
+|:-: | :-: | :-: | :-: | 
+|SpringBoot | 容器+MVC框架 |  [spring.io](https://spring.io/projects/spring-boot)|
+|MyBatis	|ORM框架	|[mybstis.org](http://www.mybatis.org/mybatis-3/zh/index.html)
+|MyBatisGenerator|	数据层代码生成|[mybstis.org](http://www.mybatis.org/generator/index.html]|
+|PageHelper	MyBatis|物理分页插件|[oschina.net](	http://git.oschina.net/free/Mybatis_PageHelper)
+|Swagger-UI|	文档生产工具|	[swagger-api](https://github.com/swagger-api/swagger-ui)|
+|Redis|	分布式缓存|	[redis.io](https://redis.io/)|
 ####   生成代码
 - 引入 MyBatis Generator 依赖
 ````
