@@ -3,12 +3,9 @@ package com.example.mall.Service.Impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.example.mall.entity.Goods;
-import com.example.mall.entity.GoodsExample;
 import com.example.mall.entity.User;
 import com.example.mall.entity.UserExample;
 import com.example.mall.mapper.UserMapper;
-import com.example.mall.mapper.UserSqlProvider;
 import  com.example.mall.utils.CommonResult;
 import com.example.mall.Service.RedisService;
 import com.example.mall.Service.UmsMemberService;
@@ -18,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +30,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     @Autowired
     private UserExample userExample;
     @Autowired
-    private  User user;
+    private User user;
     @Autowired
     private UserMapper userMapper;
     @Value("${redis.key.prefix.authCode}")
@@ -100,4 +97,15 @@ public class UmsMemberServiceImpl implements UmsMemberService {
             return CommonResult.failed(  "已存在同信息用户,请勿重复注册");
         }
     }
+    @Override
+    public CommonResult userup( User user) {
+
+        if(user!=null){
+            userMapper.updateByPrimaryKey(user);
+            return CommonResult.success( null, "修改成功");
+        }else{
+            return CommonResult.failed(  "账号不存在");
+        }
+    }
+
 }

@@ -1,24 +1,21 @@
 package com.example.mall.controller;
 
 
-import cn.hutool.core.date.DateUtil;
+import com.example.mall.entity.User;
 import  com.example.mall.utils.CommonResult;
 import com.example.mall.Service.UmsMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 会员登录注册管理Controller
  * Created by macro on 2018/8/3.
  */
 @Controller
-@Api(tags = "UmsMemberController", description = "会员登录注册管理")
+@Api(tags = "UmsMemberController", description = "会员信息管理")
 @RequestMapping("/sso")
 public class UmsMemberController {
     @Autowired
@@ -45,6 +42,13 @@ public class UmsMemberController {
                                        @RequestParam String password) {
         return memberService.login(account,password);
     }
+    @ApiOperation("修改收货地址")
+    @RequestMapping(value = "/userup", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult userup(@RequestBody User user) {
+        return memberService.userup(user);
+    }
+
     @ApiOperation("注册账号")
     @RequestMapping(value = "/registered", method = RequestMethod.POST)
     @ResponseBody

@@ -1,5 +1,6 @@
 package com.example.mall.Service;
 
+import com.example.mall.entity.User;
 import com.example.mall.utils.CommonResult;
 
 /**
@@ -17,13 +18,16 @@ public interface UmsMemberService {
      * 判断验证码和手机号码是否匹配
      */
     CommonResult verifyAuthCode(String telephone, String authCode);
-    /*
+/*
          验证用户名密码
-     */
+*/
 
 
     CommonResult login(String account, String password);
 
 
+
     CommonResult registered(String account, String password, String name, String sex, String tel, String address, String headsculpture);
+
+    CommonResult userup(User user);
 }

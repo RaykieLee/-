@@ -28,7 +28,19 @@
         <table tableName="goods" >
             <property name="modelOnly" value="false"/>
         </table>
-        <table tableName="goods" >
+        <table tableName="discuss" >
+            <property name="modelOnly" value="false"/>
+        </table>
+        <table tableName="goods_sku" >
+            <property name="modelOnly" value="false"/>
+        </table>
+        <table tableName="oms_order" >
+            <property name="modelOnly" value="false"/>
+        </table>
+        <table tableName="shoppingcar" >
+            <property name="modelOnly" value="false"/>
+        </table>
+        <table tableName="oms_order_item" >
             <property name="modelOnly" value="false"/>
         </table>
     </context>
