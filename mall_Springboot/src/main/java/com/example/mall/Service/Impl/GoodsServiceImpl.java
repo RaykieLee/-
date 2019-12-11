@@ -13,6 +13,5 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Goods select(Integer id) {
         return goodsMapper.selectByPrimaryKey(id);
-
     }
 }

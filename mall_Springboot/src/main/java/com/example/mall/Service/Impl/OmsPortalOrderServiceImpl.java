@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 前台订单管理Service
+ * 订单管理Service
  * Created by macro on 2018/8/30.
  */
 @Service
@@ -36,7 +36,6 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     private OmsOrderItemExample omsOrderItemExample;
     @Autowired
     private OmsOrderExample omsOrderExample;
-
     @Autowired
     private GoodsMapper goodsMapper;
 

@@ -9,3 +9,4 @@ ssss@DESKTOP-ssssMINGW64 eprojectssss(master)
 
 2. ‘Ÿ ‰»Î
 $ git reset
+7d5dda6592b1066e

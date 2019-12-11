@@ -1,35 +1,40 @@
 rabbitmq:
-  host: localhost # rabbitmqµÄÁ¬½ÓµØÖ·
-  port: 5672 # rabbitmqµÄÁ¬½Ó¶Ë¿ÚºÅ
-  virtual-host: /mall # rabbitmqµÄĞéÄâhost
-  username: mall # rabbitmqµÄÓÃ»§Ãû
-  password: mall # rabbitmqµÄÃÜÂë
-  publisher-confirms: true #Èç¹û¶ÔÒì²½ÏûÏ¢ĞèÒª»Øµ÷±ØĞëÉèÖÃÎªtrue
+  host: localhost # rabbitmqçš„è¿æ¥åœ°å€
+  port: 5672 # rabbitmqçš„è¿æ¥ç«¯å£å·
+  virtual-host: /mall # rabbitmqçš„è™šæ‹Ÿhost
+  username: mall # rabbitmqçš„ç”¨æˆ·å
+  password: mall # rabbitmqçš„å¯†ç 
+  publisher-confirms: true #å¦‚æœå¯¹å¼‚æ­¥æ¶ˆæ¯éœ€è¦å›è°ƒå¿…é¡»è®¾ç½®ä¸ºtrue
 redis:
   key:
     prefix:
       authCode: "portal:authCode:"
     expire:
-      authCode: 120 # ÑéÖ¤Âë³¬ÆÚÊ±¼ä
+      authCode: 120 # éªŒè¯ç è¶…æœŸæ—¶é—´
 mybatis:
   type-aliases-package: life.majiang.community.mapper
 server:
   port: 8887
 spring:
   redis:
-    host: localhost # Redis·şÎñÆ÷µØÖ·
-    database: 0 # RedisÊı¾İ¿âË÷Òı£¨Ä¬ÈÏÎª0£©
-    port: 6379 # Redis·şÎñÆ÷Á¬½Ó¶Ë¿Ú
-    password: # Redis·şÎñÆ÷Á¬½ÓÃÜÂë£¨Ä¬ÈÏÎª¿Õ£©
+    host: localhost # RedisæœåŠ¡å™¨åœ°å€
+    database: 0 # Redisæ•°æ®åº“ç´¢å¼•ï¼ˆé»˜è®¤ä¸º0ï¼‰
+    port: 6379 # RedisæœåŠ¡å™¨è¿æ¥ç«¯å£
+    password: # RedisæœåŠ¡å™¨è¿æ¥å¯†ç ï¼ˆé»˜è®¤ä¸ºç©ºï¼‰
     jedis:
       pool:
-        max-active: 8 # Á¬½Ó³Ø×î´óÁ¬½ÓÊı£¨Ê¹ÓÃ¸ºÖµ±íÊ¾Ã»ÓĞÏŞÖÆ£©
-        max-wait: -1ms # Á¬½Ó³Ø×î´ó×èÈûµÈ´ıÊ±¼ä£¨Ê¹ÓÃ¸ºÖµ±íÊ¾Ã»ÓĞÏŞÖÆ£©
-        max-idle: 8 # Á¬½Ó³ØÖĞµÄ×î´ó¿ÕÏĞÁ¬½Ó
-        min-idle: 0 # Á¬½Ó³ØÖĞµÄ×îĞ¡¿ÕÏĞÁ¬½Ó
-    timeout: 3000ms # Á¬½Ó³¬Ê±Ê±¼ä£¨ºÁÃë£©
+        max-active: 8 # è¿æ¥æ± æœ€å¤§è¿æ¥æ•°ï¼ˆä½¿ç”¨è´Ÿå€¼è¡¨ç¤ºæ²¡æœ‰é™åˆ¶ï¼‰
+        max-wait: -1ms # è¿æ¥æ± æœ€å¤§é˜»å¡ç­‰å¾…æ—¶é—´ï¼ˆä½¿ç”¨è´Ÿå€¼è¡¨ç¤ºæ²¡æœ‰é™åˆ¶ï¼‰
+        max-idle: 8 # è¿æ¥æ± ä¸­çš„æœ€å¤§ç©ºé—²è¿æ¥
+        min-idle: 0 # è¿æ¥æ± ä¸­çš„æœ€å°ç©ºé—²è¿æ¥
+    timeout: 3000ms # è¿æ¥è¶…æ—¶æ—¶é—´ï¼ˆæ¯«ç§’ï¼‰
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: 18319795400
     url: jdbc:mysql://localhost:3306/shopping?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

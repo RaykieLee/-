@@ -51,5 +51,4 @@ public class OmsPortalOrderController {
     public Object test() {
         return new JSONObject().toJSONString(omsOrderMapper.selectByPrimaryKey(new Long(1)))+new JSONObject().toJSONString(omsOrderItemMapper.selectByPrimaryKey(new Long(1)));
     }
-
 }
