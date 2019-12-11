@@ -4,6 +4,7 @@ package com.example.mall.Service.Impl;
 
 import com.example.mall.Service.OmsPortalOrderService;
 import com.example.mall.entity.OmsOrder;
+import com.example.mall.entity.OmsOrderExample;
 import com.example.mall.entity.OmsOrderItem;
 import com.example.mall.entity.OmsOrderItemExample;
 import com.example.mall.mapper.GoodsMapper;
@@ -15,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 前台订单管理Service
@@ -32,6 +35,9 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     @Autowired
     private OmsOrderItemExample omsOrderItemExample;
     @Autowired
+    private OmsOrderExample omsOrderExample;
+
+    @Autowired
     private GoodsMapper goodsMapper;
 
     @Override
@@ -41,9 +47,23 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         //生成订单
         omsOrderMapper.insert(omsOrder);
 //        下单完成后开启一个延迟消息，用于当用户没有付款时取消订单（orderId应该在下单后生成）
-
+        for (OmsOrderItem omsOrderItem:omsOrder.getOmsOrderItems()
+             ) {
+            omsOrderItemMapper.insert(omsOrderItem);
+            goodsMapper.addsalesvolume(omsOrderItem.getProductId(),omsOrderItem.getProductQuantity());
+        }
         sendDelayMessageCancelOrder(11L);
         return CommonResult.success(null, "下单成功");
+    }
+
+    @Override
+    public Object uporderstate(Long id, Integer state) {
+        OmsOrder omsOrder = omsOrderMapper.selectByPrimaryKey(id);
+
+        omsOrder.setStatus(state);
+        omsOrderMapper.updateByPrimaryKey(omsOrder);
+
+        return omsOrder;
     }
 
     @Override
@@ -63,4 +83,16 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         cancelOrderSender.sendMessage(orderId, delayTimes);
     }
 
+    @Override
+    public List<OmsOrderItem> getOrderItem(Long id) {
+        omsOrderItemExample.createCriteria().andOrderIdEqualTo(id);
+        return  omsOrderItemMapper.selectByExample(omsOrderItemExample);
+    }
+
+    @Override
+    public List<OmsOrder> getOrder(Long id) {
+        omsOrderExample.clear();
+        omsOrderExample.createCriteria().andMemberIdEqualTo(id);
+        return omsOrderMapper.selectByExample(omsOrderExample);
+    }
 }

@@ -1,11 +1,14 @@
 package com.example.mall.controller;
 
 
+import cn.hutool.db.Page;
 import com.alibaba.fastjson.JSONObject;
 import com.example.mall.entity.Goods;
 import com.example.mall.entity.GoodsExample;
 import com.example.mall.mapper.GoodsMapper;
+import com.example.mall.mapper.GoodsSqlProvider;
 import com.example.mall.utils.CommonResult;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +52,22 @@ public class GoodsController {
         }else{
             return CommonResult.failed(  "(#`O′)不存在该商品");
         }
+    }
+    @ApiOperation("获取商品销量")
+    @ResponseBody
+    @PostMapping("/getGoodsbydesc")
+    public CommonResult GetGoodsbydesc(@RequestParam(name = "num") Integer num) {
+        GoodsExample goodsExample = new GoodsExample();
+        goodsExample.setOrderByClause("salesvolume DESC" );
+        GoodsSqlProvider goodsSqlProvider = new GoodsSqlProvider();
+
+//        PageHelper.startPage(0, 2);
+//
+//        PageInfo<Goods> pageInfo = new PageInfo<>(goodsMapper.selectByExample(goodsExample));
+//        if(!(pageInfo==null)){
+//            return CommonResult.success( new JSONObject().toJSONString(pageInfo), "查询成功");
+//        }else{
+            return CommonResult.failed(  "(#`O′)不存在该商品");
+//        }
     }
 }

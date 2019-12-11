@@ -7,6 +7,8 @@ import com.example.mall.utils.CommonResult;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 前台订单管理Service
  * Created by macro on 2018/8/30.
@@ -24,4 +26,10 @@ public interface OmsPortalOrderService {
      */
     @Transactional
     void cancelOrder(Long orderId);
+
+    List<OmsOrder> getOrder(Long id);
+
+    List<OmsOrderItem> getOrderItem(Long id);
+
+    Object uporderstate(Long id, Integer state);
 }
