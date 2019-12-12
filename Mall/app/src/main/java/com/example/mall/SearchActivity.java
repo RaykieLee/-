@@ -2,6 +2,7 @@ package com.example.mall;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,8 @@ import com.example.mall.adapter.FlowTagAdapter;
 import com.example.mall.adapter.MessageRecyclerlistAdapter;
 import com.example.mall.bean.CommodityBean;
 import com.example.mall.bean.MessageListBean;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.utils.SnackbarUtils;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
@@ -42,7 +45,8 @@ public class SearchActivity extends AppCompatActivity {
     ImageView searchImage;
     @BindView(R.id.search)
     XUILinearLayout search;
-
+    Gson gson = new Gson();
+    List<String> history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,7 @@ public class SearchActivity extends AppCompatActivity {
     private void initView() {
         initFlowTagLayout();
         initSearchView();
+        history= (List<String>)gson.fromJson(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("history", null), new TypeToken<List<String>>(){}.getType());
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +80,9 @@ public class SearchActivity extends AppCompatActivity {
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                history.add(query);
                 SnackbarUtils.Long(mSearchView, "Query: " + query).show();
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("history",gson.toJson(history)).apply();
                 return false;
             }
 
@@ -135,7 +142,11 @@ public class SearchActivity extends AppCompatActivity {
     private void initFlowTagLayout() {
         FlowTagAdapter tagAdapter = new FlowTagAdapter(this);
         historyFlowlayout.setAdapter(tagAdapter);
-        tagAdapter.addTags(ResUtils.getStringArray(R.array.tags_values));
+
+        for(int i=0;i<PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("Status_size", 0);i++) {
+            tagAdapter.addTags((List<String>)gson.fromJson(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("history", null), new TypeToken<List<String>>(){}.getType()));
+
+
         historyFlowlayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
 //        historyFlowlayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
 //            @Override
@@ -150,4 +161,4 @@ public class SearchActivity extends AppCompatActivity {
 //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //        fragmentTransaction.replace(R.id.search_fragment, searchViewFragment).commit();
 //    }
-}
+}}

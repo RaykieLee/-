@@ -1,14 +1,27 @@
 ##笔记
-### 涉及技术及框架             
+### java后端 涉及技术及框架
 
-|技术 | 说明 | 官网   
+|技术 | 说明 | 官网
 |:-: | :-: | :-: | :-: |
 |SpringBoot | 容器+MVC框架 |  [spring.io](https://spring.io/projects/spring-boot)|
 |MyBatis	|ORM框架	|[mybstis.org](http://www.mybatis.org/mybatis-3/zh/index.html)
-|MyBatisGenerator|	数据层代码生成|[mybstis.org](http://www.mybatis.org/generator/index.html]|
+|MyBatisGenerator|	数据层代码生成|[mybstis.org](http://www.mybatis.org/generator/index.html)|
 |PageHelper	MyBatis|物理分页插件|[oschina.net](	http://git.oschina.net/free/Mybatis_PageHelper)
 |Swagger-UI|	文档生产工具|	[swagger-api](https://github.com/swagger-api/swagger-ui)|
 |Redis|	缓存|	[redis.io](https://redis.io/)|
+### Android 端 涉及技术及框架
+
+|技术 | 说明 | 官网或github地址
+|:-: | :-: | :-: | :-: |
+|rxjava3 | 异步框架 |  [reactivex.io](http://reactivex.io/)|
+|retrofit2	|网络框架	|[square.github.io](https://square.github.io/retrofit/)
+|XUI|	UI框架|[xuexiangjys](https://github.com/xuexiangjys/XUI)|
+|glide|图片加载框架|[muyangmin](https://muyangmin.github.io/glide-docs-cn/)
+|gson|	json解析工具|	[gson](https://github.com/google/gson)|
+### 数据库
+![UTOOLS1576138436432.png](https://i.loli.net/2019/12/12/g2Qot58ZM19iJpw.png)
+### 接口
+![UTOOLS1576138522209.png](https://i.loli.net/2019/12/12/sm8QBcZLhneJw6W.png)
 ### Mybatis Generator插件 
 ####   生成代码
 - 引入 MyBatis Generator 依赖
@@ -91,8 +104,64 @@ MyBatis Generator 需要一个 xml格式的配置文件，该文件的位置配�
 - <javaClientGenerator /> 指定自动生成的 DAO接口置于哪个包下
 - <table /> 指定数据表名，可以使用_和%通配符
 
+###  rxjava3与retrofit2配合使用模板
+```
+    Retrofit retrofit = new Retrofit.Builder()
+            //这里建议：- Base URL: 总是以/结尾；- @Url: 不要以/开头
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//新的配置
+            .baseUrl("http://mymall.free.idcfengye.com")
+            .build();
+    MyApi apiStores = retrofit.create(MyApi.class);
+                    apiStores.login(accounttext, passwordtext)        //获取Observable对象
+                            .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
+                            .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
+                            .subscribe(new Subscriber<CommonResult<User>>() {
+                                @Override
+                                public void onCompleted() {
+                                    mMiniLoadingDialog.dismiss();
 
-#### 
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.i("wxl", "response=" + e.getMessage());
+                                  //  mMiniLoadingDialog.dismiss();
+                                    //请求失败
+                                }
+
+                                @Override
+                                public void onNext(CommonResult<User> commonResult) {
+                                    Log.i("wxl", "response=" + commonResult.getMessage());
+
+                                    if(commonResult.getCode()==200){
+                                        SnackbarUtils.Short(view, commonResult.getMessage())
+                                                .confirm()
+                                                .radius(30, 0, Color.GREEN)
+                                                .show();
+                                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("name", accounttext).apply();
+                                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("pass", passwordtext).apply();
+                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+
+                                    }else{
+                                        SnackbarUtils.Short(view, commonResult.getMessage())
+                                                .danger()
+                                                .radius(30, 1, Color.GRAY)
+                                                .show();
+                                    }
+                                    Log.i("wxl", "response=" );
+                                    //请求成功
+                                }
+                            });
+							
+	@FormUrlEncoded
+    @POST("/user/login")
+    Observable<CommonResult<User>> login(@Field("account") String  account,
+                                         @Field("password") String  password);
+							
+```
+
+
 ## git
 ### git 更新出现stderr: error: bad signature fatal: index file corrupt
 因为git在更新操作的时候会更新.git文件夹下的index文件，方便下一次更新的时候会找到更新的节点，而现在电脑突然崩溃，这个文件可能只更新了一部分，甚至直接导致这个文件破坏，所以再次更新的时候，发现这个index文件信息不全或者文件无法读取，这样就会出现上面的提示
@@ -101,4 +170,7 @@ $ rm -f .git/index     删除文件index，也可以手动删除
 $ git reset       这个是git命名可以恢复指定的版本号，这里没有就默认恢复上一次正确的文件  
 重启即可    
 然后发现自己本地的代码都丢完了。。。。。        
+
+
+
 >      
