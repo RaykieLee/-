@@ -13,13 +13,14 @@ import retrofit2.http.POST;
 import rx.Observable;
 
 public interface MyApi {
-    @POST("registered")
-    Observable<ResponseBody> registered(@Field("account") String  account,
+    @FormUrlEncoded
+    @POST("/user/registered")
+    Observable<CommonResult> registered(@Field("account") String  account,
                                         @Field("password") String  password,
                                         @Field("name") String  name,
                                         @Field("sex") String sex, @Field("tel") String tel, @Field("address") String address, @Field("headsculpture") String headsculpture);
     @FormUrlEncoded
-    @POST("/sso/login")
+    @POST("/user/login")
     Observable<CommonResult<User>> login(@Field("account") String  account,
                                          @Field("password") String  password);
 }

@@ -88,11 +88,15 @@ public class LoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onNext(CommonResult<User> commonResult) {
+                                    Log.i("wxl", "response=" + commonResult.getMessage());
+
                                     if(commonResult.getCode()==200){
                                         SnackbarUtils.Short(view, commonResult.getMessage())
                                                 .confirm()
                                                 .radius(30, 0, Color.GREEN)
                                                 .show();
+                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+
                                     }else{
                                         SnackbarUtils.Short(view, commonResult.getMessage())
                                                 .danger()
@@ -100,8 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 .show();
                                     }
                                     Log.i("wxl", "response=" );
-                                    Log.i("wxl", "response=" + commonResult.getMessage());
-                                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                     //请求成功
                                 }
                             });

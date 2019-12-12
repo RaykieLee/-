@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @Api(tags = "UmsMemberController", description = "会员信息管理")
-@RequestMapping("/sso")
+@RequestMapping("/user")
 public class UmsMemberController {
     @Autowired
     private UmsMemberService memberService;
