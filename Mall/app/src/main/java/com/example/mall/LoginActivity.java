@@ -93,7 +93,9 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onError(Throwable e) {
                                     Log.i("wxl", "response=" + e.getMessage());
-                                  //  mMiniLoadingDialog.dismiss();
+                                    mMiniLoadingDialog.dismiss();
+
+                                    //  mMiniLoadingDialog.dismiss();
                                     //请求失败
                                 }
 

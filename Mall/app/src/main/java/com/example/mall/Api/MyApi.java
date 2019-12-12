@@ -3,7 +3,10 @@ package com.example.mall.Api;
 
 
 import com.example.mall.bean.CommonResult;
+import com.example.mall.bean.Goods;
 import com.example.mall.bean.User;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,4 +26,7 @@ public interface MyApi {
     @POST("/user/login")
     Observable<CommonResult<User>> login(@Field("account") String  account,
                                          @Field("password") String  password);
+    @FormUrlEncoded
+    @POST("/selectGoodsbyname")
+    Observable<CommonResult<List<Goods>>> selectGoodsbyname(@Field("name") String  name);
 }

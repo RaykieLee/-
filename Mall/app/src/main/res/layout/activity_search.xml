@@ -6,11 +6,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               tools:context=".SearchActivity">
-    <!--<FrameLayout-->
-    <!--android:id="@+id/search_fragment"-->
-    <!--android:name="com.example.mall.Fragment.SearchViewFragment"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"></FrameLayout>-->
+
 
     <com.xuexiang.xui.widget.searchview.MaterialSearchView
             android:id="@+id/search_view"
@@ -54,7 +50,7 @@
             <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
                     android:id="@+id/history_flowlayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_below="@id/search"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"

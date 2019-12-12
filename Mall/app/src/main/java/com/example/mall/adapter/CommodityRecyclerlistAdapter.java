@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.mall.R;
 import com.example.mall.bean.CommodityBean;
+import com.example.mall.bean.Goods;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
 import com.xuexiang.xui.widget.textview.badge.BadgeView;
 
@@ -29,10 +30,10 @@ import static com.xuexiang.xui.XUI.getContext;
 public class CommodityRecyclerlistAdapter extends RecyclerView.Adapter<CommodityRecyclerlistAdapter.MyViewHolder>  {
     private static final String TAG = "MyAdapter";
     public onRecyclerViewListener onRecyclerViewListener;
-    private List<CommodityBean> mList;
+    private List<Goods> mList;
     private Context context;
 
-    public CommodityRecyclerlistAdapter(Context context, List<CommodityBean> mList) {
+    public CommodityRecyclerlistAdapter(Context context, List<Goods> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -49,22 +50,21 @@ public class CommodityRecyclerlistAdapter extends RecyclerView.Adapter<Commodity
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        CommodityBean messageListBean = mList.get(position);
-        holder.commodityName.setText(messageListBean.getName());
-        holder.commodityDescribe.setText(messageListBean.getCommodityContent());
-        holder.commodityPrice.setText(messageListBean.getMoney());
+        Goods goods = mList.get(position);
+        holder.commodityName.setText(goods.getName());
+        holder.commodityDescribe.setText(goods.getDetails());
+        holder.commodityPrice.setText(String.valueOf(goods.getPrice()));
         //todo 关于图片加载，建议使用Glide，一个开源的图片加载和缓存处理的第三方框架，这里就不给大家演示了，后续会专门出一篇Glide的使用文章
-        Glide.with(holder.itemView)
-                .load(messageListBean.getCommodityImage())
-                .into(holder.itemImg);
-
+//        String url=getContext().getApplicationContext().getResources().getString(R.string.api_url)+"/getImage?+"+goods.getImageid();
+//        Glide.with(holder.itemView)
+//                .load(url)
+//                .into(holder.itemImg);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRecyclerViewListener.onclick(position);
             }
         });
-
     }
 
 

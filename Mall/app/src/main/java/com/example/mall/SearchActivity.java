@@ -1,11 +1,13 @@
 package com.example.mall;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -14,27 +16,38 @@ import com.example.mall.adapter.CommodityRecyclerlistAdapter;
 import com.example.mall.adapter.FlowTagAdapter;
 import com.example.mall.adapter.MessageRecyclerlistAdapter;
 import com.example.mall.bean.CommodityBean;
+import com.example.mall.bean.CommonResult;
+import com.example.mall.bean.Goods;
 import com.example.mall.bean.MessageListBean;
+import com.example.mall.bean.User;
+import com.example.mall.util.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.utils.SnackbarUtils;
+import com.xuexiang.xui.utils.WidgetUtils;
+import com.xuexiang.xui.widget.dialog.MiniLoadingDialog;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 import com.xuexiang.xui.widget.layout.XUILinearLayout;
 import com.xuexiang.xui.widget.searchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
+import static com.example.mall.util.HttpUtil.apiStores;
 import static com.xuexiang.xui.XUI.getContext;
 
 
 public class SearchActivity extends AppCompatActivity {
 
-    private List<CommodityBean> mList = new ArrayList<>();
+    private List<Goods> mList = new ArrayList<>();
     @BindView(R.id.history_flowlayout)
     FlowTagLayout historyFlowlayout;
     @BindView(R.id.search_view)
@@ -47,6 +60,9 @@ public class SearchActivity extends AppCompatActivity {
     XUILinearLayout search;
     Gson gson = new Gson();
     List<String> history;
+    MiniLoadingDialog mMiniLoadingDialog;
+    private CommodityRecyclerlistAdapter myAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +71,16 @@ public class SearchActivity extends AppCompatActivity {
 //        SearchViewFragment  searchViewFragment= new SearchViewFragment();
 //        replaceFragment(searchViewFragment);
         initView();
-        inRecyclerData();
-        initRecyclerView();
+
     }
 
     private void initView() {
-        initFlowTagLayout();
-        initSearchView();
+        mMiniLoadingDialog= WidgetUtils.getMiniLoadingDialog(this,"正在加载商品数据");
         history= (List<String>)gson.fromJson(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("history", null), new TypeToken<List<String>>(){}.getType());
+        if(history==null) history=new ArrayList<>();
+        initFlowTagLayout(); // 加载历史流标签
+        initSearchView();
+        initRecyclerView();
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +99,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 history.add(query);
+                inRecyclerData(query);
                 SnackbarUtils.Long(mSearchView, "Query: " + query).show();
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("history",gson.toJson(history)).apply();
                 return false;
@@ -110,15 +129,49 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void inRecyclerData() {
-        for (int i = 0; i < 30; i++) {
-            mList.add(new CommodityBean("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575741490&di=92ca815588c88488f6bdd9185ab05754&imgtype=jpg&er=1&src=http%3A%2F%2Fwx3.sinaimg.cn%2Fthumb150%2F75f6e7a7gy1fe3j9r0cmpg20dc07db0t.gif", "崇杰写真店", "江崇杰最新写真上线啦！现在购买只需988", "2019/12/1", "1"));
-        }
+    private void inRecyclerData(String name) {
+//        for (int i = 0; i < 30; i++) {
+//            mList.add(new CommodityBean("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575741490&di=92ca815588c88488f6bdd9185ab05754&imgtype=jpg&er=1&src=http%3A%2F%2Fwx3.sinaimg.cn%2Fthumb150%2F75f6e7a7gy1fe3j9r0cmpg20dc07db0t.gif", "崇杰写真店", "江崇杰最新写真上线啦！现在购买只需988", "2019/12/1", "1"));
+//        }
+        HttpUtil.getInstence().selectGoodsbyname(name)        //获取Observable对象
+                .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
+                .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
+                .subscribe(new Subscriber<CommonResult<List<Goods>>>() {
+                    @Override
+                    public void onCompleted() {
+                        mMiniLoadingDialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("wxl", "response=" + e.getMessage());
+                        //  mMiniLoadingDialog.dismiss();
+                        //请求失败
+                    }
+
+                    @Override
+                    public void onNext(CommonResult<List<Goods>> commonResult) {
+
+                        //
+                        for (Goods goods:commonResult.getData()
+                             ) {
+                            mList.add(goods);
+                            Log.i("wxl", "response=" +new Gson().toJson(goods));
+                        }
+                        myAdapter.notifyDataSetChanged();
+                        Log.i("wxl", "response=" +mList.size());
+                        //请求成功
+                    }
+                });
     }
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        CommodityRecyclerlistAdapter myAdapter = new CommodityRecyclerlistAdapter(this, mList);
+//        mList.add(new Goods(1,"A","A",1,"A",1,1,"A",1,new Date()));
+//        mList.add(new Goods(1,"A","A",1,"A",1,1,"A",1,new Date()));
+//        mList.add(new Goods(1,"A","A",1,"A",1,1,"A",1,new Date()));
+        myAdapter = new CommodityRecyclerlistAdapter(this, mList);
         commodityList.setLayoutManager(linearLayoutManager);
         commodityList.setAdapter(myAdapter);
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
@@ -140,20 +193,17 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initFlowTagLayout() {
-        FlowTagAdapter tagAdapter = new FlowTagAdapter(this);
+        final FlowTagAdapter tagAdapter = new FlowTagAdapter(this);
         historyFlowlayout.setAdapter(tagAdapter);
-
-        for(int i=0;i<PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getInt("Status_size", 0);i++) {
-            tagAdapter.addTags((List<String>)gson.fromJson(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("history", null), new TypeToken<List<String>>(){}.getType()));
-
-
+        tagAdapter.addTags((List<String>)gson.fromJson(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("history", null), new TypeToken<List<String>>(){}.getType()));
         historyFlowlayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-//        historyFlowlayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
-//            @Override
-//            public void onItemSelect(FlowTagLayout parent, int position, List<Integer> selectedList) {
-//               // XToastUtils.toast(getSelectedText(parent, selectedList));
-//            }
-//        });
+        historyFlowlayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
+            @Override
+            public void onItemSelect(FlowTagLayout parent, int position, List<Integer> selectedList) {
+                inRecyclerData(tagAdapter.getItem(position));
+               // XToastUtils.toast(getSelectedText(parent, selectedList));
+            }
+        });
         //tagAdapter.setSelectedPositions(2, 3, 4);
     }
 //    private void replaceFragment(SearchViewFragment searchViewFragment) {
@@ -161,4 +211,4 @@ public class SearchActivity extends AppCompatActivity {
 //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //        fragmentTransaction.replace(R.id.search_fragment, searchViewFragment).commit();
 //    }
-}}
+}

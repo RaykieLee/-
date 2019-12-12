@@ -39,7 +39,7 @@ public class GoodsController {
        // goodsExample.setOrderByClause("salesvolume");
         List<Goods> goodsList=goodsMapper.selectByExample( goodsExample );
         if(!(goodsList.size()==0)){
-            return CommonResult.success( new JSONObject().toJSONString(goodsList), "查询成功");
+            return CommonResult.success( goodsList, "查询成功");
         }else{
             return CommonResult.failed(  "(#`O′)未搜索到该商品 请换关键词");
         }
