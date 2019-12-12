@@ -14,8 +14,10 @@ import com.example.mall.bean.User;
 import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.utils.SnackbarUtils;
 import com.xuexiang.xui.utils.Utils;
+import com.xuexiang.xui.utils.WidgetUtils;
 import com.xuexiang.xui.widget.alpha.XUIAlphaButton;
 import com.xuexiang.xui.widget.button.roundbutton.RoundButton;
+import com.xuexiang.xui.widget.dialog.MiniLoadingDialog;
 import com.xuexiang.xui.widget.edittext.ClearEditText;
 import com.xuexiang.xui.widget.edittext.PasswordEditText;
 import com.xuexiang.xui.widget.edittext.ValidatorEditText;
@@ -65,6 +67,8 @@ public class RegisteActivity extends AppCompatActivity {
             .baseUrl("http://mymall.free.idcfengye.com")
             .build();
     MyApi apiStores = retrofit.create(MyApi.class);
+    MiniLoadingDialog mMiniLoadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,7 @@ public class RegisteActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mMiniLoadingDialog = WidgetUtils.getMiniLoadingDialog(this,"正在注册");
         showSexPickerView();
     }
     //性別选择
@@ -119,13 +124,14 @@ public class RegisteActivity extends AppCompatActivity {
         if(accounttext.isEmpty()||passwordtext.isEmpty()||nametext.isEmpty()||sextext.isEmpty()||tel.isEmpty()||adresstext.isEmpty()||!passwordtext.equals(passwordNext.getText().toString().trim())){
             SnackbarUtils.Short(view, "请输入正确的信息").warning().radius(30, 1, Color.GRAY).show();
         }else{
+            mMiniLoadingDialog.show();
             apiStores.registered(accounttext,passwordtext,nametext,sextext,tel,adresstext,"null")        //获取Observable对象
                     .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
                     .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
                     .subscribe(new Subscriber<CommonResult>() {
                         @Override
                         public void onCompleted() {
-
+                        mMiniLoadingDialog.dismiss();
                         }
 
                         @Override
