@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F7F9"
+    tools:context=".LoginActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
+        app:srcCompat="@drawable/mall"/>
+
+    <com.xuexiang.xui.widget.edittext.ClearEditText
+        android:id="@+id/account"
+        android:hint="输入用户名"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        app:met_hideUnderline="true"
+        app:pet_enableIconAlpha="true"
+        android:layout_marginLeft="60dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        android:gravity="start"
+        android:textAlignment="viewStart">
+
+        <com.xuexiang.xui.widget.edittext.PasswordEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="start"
+            android:hint="输入密码"
+            android:inputType="textPassword"
+            android:textAlignment="viewStart"
+            app:pet_enableIconAlpha="true" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        android:gravity="start"
+        android:textAlignment="viewStart">
+
+        <com.xuexiang.xui.widget.edittext.PasswordEditText
+            android:id="@+id/password_next"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="start"
+            android:hint="输入密码"
+            android:inputType="textPassword"
+            android:textAlignment="viewStart"
+            app:pet_enableIconAlpha="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <com.xuexiang.xui.widget.edittext.ClearEditText
+        android:id="@+id/name"
+        android:hint="输入真实姓名"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        app:met_hideUnderline="true"
+        app:pet_enableIconAlpha="true"
+        android:layout_marginLeft="60dp"/>
+    <com.xuexiang.xui.widget.edittext.ClearEditText
+        android:id="@+id/sex"
+        android:hint="选择您的性别"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        app:met_hideUnderline="true"
+        app:pet_enableIconAlpha="true"
+        android:layout_marginLeft="60dp"/>
+    <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+        android:layout_width="match_parent"
+        android:id="@+id/login"
+        style="@style/RoundButton.Auto"
+        android:layout_margin="60dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        app:rb_radius="30dp"
+        app:rb_borderColor="@color/cardview_dark_background"
+        android:text="注册"/>
+
+
+</ScrollView>
+
+
+</LinearLayout>

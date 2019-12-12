@@ -1,5 +1,6 @@
 package com.example.mall;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @OnClick({R.id.login, R.id.registe})
-    public void onViewClicked(View view) {
+    public void onViewClicked(final  View view) {
         switch (view.getId()) {
             case R.id.login:
                 String accounttext = account.getText().toString().trim();
@@ -87,18 +88,28 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void onNext(CommonResult<User> commonResult) {
+                                if(commonResult.getCode()==200){
+                                    SnackbarUtils.Short(view, commonResult.getMessage())
+                                            .confirm()
+                                            .radius(30, 0, Color.GREEN)
+                                            .show();
+                                }else{
+                                    SnackbarUtils.Short(view, commonResult.getMessage())
+                                            .danger()
+                                            .radius(30, 1, Color.GRAY)
+                                            .show();
+                                }
                                 Log.i("wxl", "response=" );
-
-
                                     Log.i("wxl", "response=" + commonResult.getMessage());
-
-
+                                startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                 //请求成功
                             }
                         });
 
                 break;
             case R.id.registe:
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+
                 break;
         }
     }

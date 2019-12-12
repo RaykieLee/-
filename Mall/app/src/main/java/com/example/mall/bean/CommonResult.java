@@ -5,14 +5,13 @@ package com.example.mall.bean;
  * Created by macro on 2019/4/19.
  */
 public class CommonResult<T> {
-    private long code;
+    private Integer code;
     private String message;
     private T data;
-
     protected CommonResult() {
     }
 
-    protected CommonResult(long code, String message, T data) {
+    protected CommonResult(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -24,7 +23,7 @@ public class CommonResult<T> {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

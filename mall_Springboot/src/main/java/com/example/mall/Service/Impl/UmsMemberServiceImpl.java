@@ -71,7 +71,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
         List<User> userList= userMapper.selectByExample( userExample );
       //  logger.info(String.valueOf(userList.size())+account);
         if(!(userList.size()==0)){
-            return CommonResult.success( new JSONObject().toJSONString(userList), "登陆成功");
+            return CommonResult.success( userList.get(0), "登陆成功");
         }else{
             return CommonResult.failed(  "账号或密码错误");
         }
