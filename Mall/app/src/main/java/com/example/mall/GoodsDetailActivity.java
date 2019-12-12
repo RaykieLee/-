@@ -2,6 +2,7 @@ package com.example.mall;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,14 +22,13 @@ import android.widget.TextView;
 
 import com.example.mall.adapter.ImageScrollAdapter;
 import com.example.mall.bean.Generater;
+import com.example.mall.bean.Param;
 import com.example.mall.util.Utils;
 import com.example.mall.view.ChoiceParameterDialog;
 
 import java.util.ArrayList;
 
-/**
- * Created by Administrator on 2017/8/1 0001.
- */
+
 
 public class GoodsDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,6 +55,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.iv_back_).setOnClickListener(this);
         findViewById(R.id.btn_buy).setOnClickListener(this);
+        findViewById(R.id.add_shopping_trolley).setOnClickListener(this);
         init();
         dissmissOverlay();
     }
@@ -132,6 +134,36 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
                     choiceParameterDialog = new ChoiceParameterDialog(this, Generater.GenerateParam());
                 }
                 choiceParameterDialog.show();
+                choiceParameterDialog.setSelectedListener(new ChoiceParameterDialog.SelectedListener() {
+                    @Override
+                    public void onSlectedChanged(boolean allSelected, String param) {
+
+                    }
+
+                    @Override
+                    public void onComfirm(int count, Param.SkuBean selectedSku, double price) {
+                        Log.d("lzx", "onComfirm: "+price);
+                    }
+                });
+                break;
+            case R.id.add_shopping_trolley:
+                if(choiceParameterDialog==null){
+                    choiceParameterDialog = new ChoiceParameterDialog(this, Generater.GenerateParam());
+                }
+                choiceParameterDialog.tvConfirm.setBackgroundColor(Color.parseColor("#FF9800"));
+                choiceParameterDialog.tvConfirm.setText("收藏");
+                choiceParameterDialog.show();
+                choiceParameterDialog.setSelectedListener(new ChoiceParameterDialog.SelectedListener() {
+                    @Override
+                    public void onSlectedChanged(boolean allSelected, String param) {
+
+                    }
+
+                    @Override
+                    public void onComfirm(int count, Param.SkuBean selectedSku, double price) {
+                        Log.d("lzx", "onComfirm: "+price);
+                    }
+                });
                 break;
             case R.id.iv_back:
             case R.id.iv_back_:

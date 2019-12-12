@@ -81,6 +81,7 @@ public class ShoppingCarDataBean implements Cloneable {
             private String goods_id;
             private String goods_image;
             private String goods_name;
+            private String goods_sku;
             private String goods_num;
             private String goods_price;
             private boolean isSelect;        //商品是否在购物车中被选中

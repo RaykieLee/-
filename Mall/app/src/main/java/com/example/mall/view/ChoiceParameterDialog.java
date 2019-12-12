@@ -59,7 +59,7 @@ public class ChoiceParameterDialog extends Dialog {
     private boolean allSelected = false;
     private SelectedListener selectedListener;
     private Param.SkuBean selectedSku;
-    private TextView tvConfirm;
+    public TextView tvConfirm;
     private int qpl = 1;
     private double price;
     private double totleprice;

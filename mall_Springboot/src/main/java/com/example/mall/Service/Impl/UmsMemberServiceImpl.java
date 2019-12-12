@@ -99,7 +99,6 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     }
     @Override
     public CommonResult userup( User user) {
-
         if(user!=null){
             userMapper.updateByPrimaryKey(user);
             return CommonResult.success( null, "修改成功");

@@ -185,6 +185,7 @@ public class SearchActivity extends AppCompatActivity {
         myAdapter.setOnRecyclerViewListener(new CommodityRecyclerlistAdapter.onRecyclerViewListener() {
             @Override
             public void onclick(int position) {
+
                 Intent intent = new Intent(SearchActivity.this,GoodsDetailActivity.class);
                 Toast.makeText(getContext(),"dia",Toast.LENGTH_LONG).show();
                 startActivity(intent);
