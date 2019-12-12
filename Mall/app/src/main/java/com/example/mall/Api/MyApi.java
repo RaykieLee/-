@@ -4,6 +4,7 @@ package com.example.mall.Api;
 
 import com.example.mall.bean.CommonResult;
 import com.example.mall.bean.Goods;
+import com.example.mall.bean.ShoppingCarDataBean;
 import com.example.mall.bean.User;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("/selectGoodsbyname")
     Observable<CommonResult<List<Goods>>> selectGoodsbyname(@Field("name") String  name);
+    @FormUrlEncoded
+    @POST("/shopping_Car/getCar")
+    Observable<ShoppingCarDataBean> getCar(@Field("id") Integer  id);
 }

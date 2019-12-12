@@ -6,6 +6,8 @@ import com.example.mall.Service.ShoppingCarService;
 import com.example.mall.entity.Shoppingcar;
 import com.example.mall.entity.ShoppingcarExample;
 import com.example.mall.mapper.ShoppingcarMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
     ShoppingcarMapper shoppingcarMapper;
     @Autowired
     ShoppingcarExample shoppingcarExample;
+
     @Override
     public List<Shoppingcar>  getCar(Integer userid) {
         shoppingcarExample.createCriteria().andUseridEqualTo(userid);

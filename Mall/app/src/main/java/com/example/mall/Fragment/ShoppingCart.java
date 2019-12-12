@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,11 @@ import android.widget.TextView;
 import com.example.mall.DemoDataProvider;
 import com.example.mall.R;
 import com.example.mall.adapter.ShoppingCarAdapter;
+import com.example.mall.bean.CommonResult;
+import com.example.mall.bean.Goods;
 import com.example.mall.bean.ShoppingCarDataBean;
 import com.example.mall.customview.RoundCornerDialog;
+import com.example.mall.util.HttpUtil;
 import com.example.mall.util.ToastUtil;
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -38,6 +42,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class ShoppingCart extends Fragment {
@@ -228,11 +235,39 @@ public class ShoppingCart extends Fragment {
         /**
          * 实际开发中，通过请求后台接口获取购物车数据并解析
          */
-        Gson gson = new Gson();
-        ShoppingCarDataBean shoppingCarDataBean = gson.fromJson(shoppingCarData, ShoppingCarDataBean.class);
-        datas = shoppingCarDataBean.getDatas();
+       // Gson gson = new Gson();
+       // final ShoppingCarDataBean shoppingCarDataBean = gson.fromJson(shoppingCarData, ShoppingCarDataBean.class);
 
-        initExpandableListViewData(datas);
+        //datas = shoppingCarDataBean.getDatas();
+        HttpUtil.getInstence().getCar(20)      //获取Observable对象
+                .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
+                .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
+                .subscribe(new Subscriber<ShoppingCarDataBean>() {
+                    @Override
+                    public void onCompleted() {
+                     //   mMiniLoadingDialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("wxl", "response=" + e.getMessage());
+                        //  mMiniLoadingDialog.dismiss();
+                        //请求失败
+                    }
+                    @Override
+                    public void onNext(ShoppingCarDataBean shoppingCarDataBean) {
+
+                        //
+                        initExpandableListViewData(shoppingCarDataBean.getDatas());
+                        Log.i("wxl", "response=" +shoppingCarDataBean.getDatas().size());
+                        shoppingCarAdapter.notifyDataSetChanged();
+                        Log.i("wxl", "成功=" + new Gson().toJson(shoppingCarDataBean.getDatas()).toString());
+
+                        //请求成功
+                    }
+                });
+
 
         //下拉刷新
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -259,7 +294,6 @@ public class ShoppingCart extends Fragment {
                 }, 2000);
             }
         });
-
     }
 
     /**

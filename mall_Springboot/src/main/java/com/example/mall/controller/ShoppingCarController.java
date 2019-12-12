@@ -1,6 +1,7 @@
 package com.example.mall.controller;
 
 
+import com.example.mall.Service.Impl.ShoppingCarServiceImpl;
 import com.example.mall.Service.ShoppingCarService;
 import com.example.mall.Service.UmsMemberService;
 import com.example.mall.entity.ShoppingCarDataBean;
@@ -10,6 +11,8 @@ import com.example.mall.entity.User;
 import com.example.mall.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +33,10 @@ public class ShoppingCarController {
     private ShoppingCarService shoppingCarService;
     @Autowired
     private ShoppingCarDataBean shoppingCarDataBean;
+    Logger logger = LoggerFactory.getLogger(ShoppingCarController.class);
 
     @ApiOperation("获取购物车信息")
-    @RequestMapping(value = "/getCar", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCar", method = RequestMethod.POST)
     @ResponseBody
     public ShoppingCarDataBean getCar(@RequestParam Integer id) {
           List<DatasBean> datas=new ArrayList<>();
@@ -42,11 +46,13 @@ public class ShoppingCarController {
 
         for (Shoppingcar shoppingcar:shoppingcars
              ) {
+
             if(datas.size()==0){
                 DatasBean.GoodsBean goodsBean = new DatasBean.GoodsBean();
                 goodsBean.setGoods_id(String.valueOf(shoppingcar.getGoodsid()));
                 goodsBean.setGoods_image(String.valueOf(shoppingcar.getImage()));
                 goodsBean.setGoods_name(String.valueOf(shoppingcar.getName()));
+                goodsBean.setGoods_num(String.valueOf(shoppingcar.getNum()));
                 goodsBean.setGoods_price(String.valueOf(shoppingcar.getPrice()));
                 goodsBean.setIsSelect(false);
                 DatasBean datasBean = new DatasBean();
@@ -58,10 +64,13 @@ public class ShoppingCarController {
                 datasBean.setStore_name(shoppingcar.getStroename());
                 datas.add(datasBean);
             }else {
-                if ( datas.get(datas.size()-1).getStore_id().equals(String.valueOf(shoppingcar.getGoodsid()))){
+                logger.info(datas.get(datas.size()-1).getStore_id()+"  "+String.valueOf(shoppingcar.getGoodsid())+"  "+datas.size());
+
+                if ( datas.get(datas.size()-1).getStore_id().equals(String.valueOf(shoppingcar.getStroeid()))){
                     DatasBean.GoodsBean goodsBean = new DatasBean.GoodsBean();
                     goodsBean.setGoods_id(String.valueOf(shoppingcar.getGoodsid()));
                     goodsBean.setGoods_image(String.valueOf(shoppingcar.getImage()));
+                    goodsBean.setGoods_num(String.valueOf(shoppingcar.getNum()));
                     goodsBean.setGoods_name(String.valueOf(shoppingcar.getName()));
                     goodsBean.setGoods_price(String.valueOf(shoppingcar.getPrice()));
                     goodsBean.setIsSelect(false);
@@ -70,6 +79,7 @@ public class ShoppingCarController {
                     DatasBean.GoodsBean goodsBean = new DatasBean.GoodsBean();
                     goodsBean.setGoods_id(String.valueOf(shoppingcar.getGoodsid()));
                     goodsBean.setGoods_image(String.valueOf(shoppingcar.getImage()));
+                    goodsBean.setGoods_num(String.valueOf(shoppingcar.getNum()));
                     goodsBean.setGoods_name(String.valueOf(shoppingcar.getName()));
                     goodsBean.setGoods_price(String.valueOf(shoppingcar.getPrice()));
                     goodsBean.setIsSelect(false);
