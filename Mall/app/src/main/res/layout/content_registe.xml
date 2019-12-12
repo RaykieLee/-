@@ -10,6 +10,10 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
@@ -81,7 +85,7 @@
         app:met_hideUnderline="true"
         app:pet_enableIconAlpha="true"
         android:layout_marginLeft="60dp"/>
-    <com.xuexiang.xui.widget.edittext.ClearEditText
+    <com.xuexiang.xui.widget.textview.autofit.AutoFitTextView
         android:id="@+id/sex"
         android:hint="选择您的性别"
         android:layout_width="match_parent"
@@ -91,6 +95,31 @@
         app:met_hideUnderline="true"
         app:pet_enableIconAlpha="true"
         android:layout_marginLeft="60dp"/>
+    <com.xuexiang.xui.widget.edittext.ClearEditText
+        android:id="@+id/adress"
+        android:hint="输入收货地址"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="60dp"
+        app:met_hideUnderline="true"
+        app:pet_enableIconAlpha="true"
+        android:layout_marginLeft="60dp"/>
+
+        <com.xuexiang.xui.widget.edittext.ValidatorEditText
+            style="@style/EditText"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_height="24dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="60dp"
+            android:hint="输入电话号码"
+            android:singleLine="true"
+            app:vet_errorMessage="@string/tip_number_only_error_message"
+            app:vet_regexp="@string/regex_phone_number"
+            app:vet_tipPosition="top" />
+
     <com.xuexiang.xui.widget.button.roundbutton.RoundButton
         android:layout_width="match_parent"
         android:id="@+id/login"
@@ -102,7 +131,7 @@
         app:rb_borderColor="@color/cardview_dark_background"
         android:text="注册"/>
 
-
+    </LinearLayout>
 </ScrollView>
 
 

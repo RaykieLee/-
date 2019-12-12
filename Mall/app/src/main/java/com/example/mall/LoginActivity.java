@@ -69,46 +69,47 @@ public class LoginActivity extends AppCompatActivity {
                 String passwordtext =password.getText().toString().trim();
                 if(accounttext.isEmpty()||passwordtext.isEmpty()){
                     SnackbarUtils.Short(view, "请输入正确的账号或密码").warning().radius(30, 1, Color.GRAY).show();
-                }
-                apiStores.login(accounttext,passwordtext)        //获取Observable对象
-                        .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
-                        .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
-                        .subscribe(new Subscriber<CommonResult<User>>() {
-                            @Override
-                            public void onCompleted() {
+                }else{
+                    apiStores.login(accounttext,passwordtext)        //获取Observable对象
+                            .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
+                            .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
+                            .subscribe(new Subscriber<CommonResult<User>>() {
+                                @Override
+                                public void onCompleted() {
 
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.i("wxl", "response=" + e.getMessage());
-
-                                //请求失败
-                            }
-
-                            @Override
-                            public void onNext(CommonResult<User> commonResult) {
-                                if(commonResult.getCode()==200){
-                                    SnackbarUtils.Short(view, commonResult.getMessage())
-                                            .confirm()
-                                            .radius(30, 0, Color.GREEN)
-                                            .show();
-                                }else{
-                                    SnackbarUtils.Short(view, commonResult.getMessage())
-                                            .danger()
-                                            .radius(30, 1, Color.GRAY)
-                                            .show();
                                 }
-                                Log.i("wxl", "response=" );
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.i("wxl", "response=" + e.getMessage());
+
+                                    //请求失败
+                                }
+
+                                @Override
+                                public void onNext(CommonResult<User> commonResult) {
+                                    if(commonResult.getCode()==200){
+                                        SnackbarUtils.Short(view, commonResult.getMessage())
+                                                .confirm()
+                                                .radius(30, 0, Color.GREEN)
+                                                .show();
+                                    }else{
+                                        SnackbarUtils.Short(view, commonResult.getMessage())
+                                                .danger()
+                                                .radius(30, 1, Color.GRAY)
+                                                .show();
+                                    }
+                                    Log.i("wxl", "response=" );
                                     Log.i("wxl", "response=" + commonResult.getMessage());
-                                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                //请求成功
-                            }
-                        });
+                                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                    //请求成功
+                                }
+                            });
+                }
 
                 break;
             case R.id.registe:
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                startActivity(new Intent(LoginActivity.this,RegisteActivity.class));
 
                 break;
         }
