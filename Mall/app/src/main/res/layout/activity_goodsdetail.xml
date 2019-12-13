@@ -167,30 +167,30 @@
                     android:orientation="vertical">
 
 
-                    <RelativeLayout
-                        android:id="@+id/rl_goods_parameter"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/ripple_bg"
-                        android:clickable="true"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp">
+<!--                    <RelativeLayout-->
+<!--                        android:id="@+id/rl_goods_parameter"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:background="@drawable/ripple_bg"-->
+<!--                        android:clickable="true"-->
+<!--                        android:paddingLeft="15dp"-->
+<!--                        android:paddingRight="15dp">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="产品参数"
-                            android:textColor="#333"
-                            android:textSize="12sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:text="产品参数"-->
+<!--                            android:textColor="#333"-->
+<!--                            android:textSize="12sp" />-->
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:background="@mipmap/goods_details_more" />
-                    </RelativeLayout>
+<!--                        <ImageView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:background="@mipmap/goods_details_more" />-->
+<!--                    </RelativeLayout>-->
 
                     <View
                         android:layout_width="match_parent"
@@ -266,7 +266,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:ellipsize="end"
-                        android:text="天猫旗舰店"
+                        android:text="极有家天猫旗舰店"
                         android:maxLines="1"
                         android:textColor="#333"
                         android:textSize="15sp" />

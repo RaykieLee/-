@@ -90,7 +90,7 @@ public class IndexFragment extends Fragment {
     private void inData() {
         mData = DemoDataProvider.getBannerList();
         rib_simple_usage.setSource(mData).startScroll();
-        final List<String> datas = Arrays.asList("《赋得古原草送别》", "离离原上草，一岁一枯荣。", "野火烧不尽，春风吹又生。", "远芳侵古道，晴翠接荒城。", "又送王孙去，萋萋满别情。");
+        final List<String> datas = Arrays.asList("全场家电一律九五折！！！", "崇杰小店又上新品！！");
 //        tvMarquee.setOnMarqueeListener(new MarqueeTextView.OnMarqueeListener() {
 //            @Override
 //            public DisplayEntity onStartMarquee(DisplayEntity displayMsg, int index) {

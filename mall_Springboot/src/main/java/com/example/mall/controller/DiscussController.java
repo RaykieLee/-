@@ -55,9 +55,9 @@ public class DiscussController {
             return CommonResult.failed(  "(#`O′)您还没有写过评论哟亲 快去剁手吧");
         }
     }
-    @ApiOperation("根据用户id获取评论列表")
+    @ApiOperation("添加评论")
     @ResponseBody
-    @PostMapping("/getuserDiscuss")
+    @PostMapping("/addDiscuss")
     public CommonResult addDiscuss(@RequestBody Discuss discuss) {
         discussMapper.insert(discuss);
         return CommonResult.success(null, "成功发表评论");

@@ -6,6 +6,7 @@ import com.example.mall.entity.OmsOrderItem;
 import com.example.mall.mapper.GoodsMapper;
 import com.example.mall.mapper.OmsOrderItemMapper;
 import com.example.mall.mapper.OmsOrderMapper;
+import com.example.mall.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class OmsPortalOrderController {
     @ApiOperation("生成订单表")
     @RequestMapping(value = "/inomsOrder", method = RequestMethod.POST)
     @ResponseBody
-    public Object generateOrder(@RequestBody OmsOrder omsOrder) {
+    public CommonResult generateOrder(@RequestBody OmsOrder omsOrder) {
         return portalOrderService.generateOrder(omsOrder);
     }
     @ApiOperation("生成订单子购物车表")

@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * 订单管理Service
- * Created by macro on 2018/8/30.
+ *
  */
 @Service
 public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
@@ -68,16 +68,17 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     @Override
     public void cancelOrder(Long orderId) {
         //todo 执行一系类取消订单操作，具体参考mall项目
+        omsOrderMapper.deleteByPrimaryKey(orderId);
+        omsOrderItemExample.clear();
+        omsOrderItemExample.createCriteria().andOrderIdEqualTo(orderId);
+        omsOrderItemMapper.deleteByExample(omsOrderItemExample);
         LOGGER.info("process cancelOrder orderId:{}",orderId);
     }
 
     private void sendDelayMessageCancelOrder(Long orderId) {
         //获取订单超时时间，假设为60分钟
         long delayTimes = 30 * 1000;
-        omsOrderMapper.deleteByPrimaryKey(orderId);
-        omsOrderItemExample.clear();
-        omsOrderItemExample.createCriteria().andOrderIdEqualTo(orderId);
-        omsOrderItemMapper.deleteByExample(omsOrderItemExample);
+
         //发送延迟消息
         cancelOrderSender.sendMessage(orderId, delayTimes);
     }

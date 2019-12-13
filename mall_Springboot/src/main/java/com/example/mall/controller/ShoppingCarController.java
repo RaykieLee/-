@@ -64,7 +64,7 @@ public class ShoppingCarController {
                 datasBean.setStore_name(shoppingcar.getStroename());
                 datas.add(datasBean);
             }else {
-                logger.info(datas.get(datas.size()-1).getStore_id()+"  "+String.valueOf(shoppingcar.getGoodsid())+"  "+datas.size());
+               // logger.info(datas.get(datas.size()-1).getStore_id()+"  "+String.valueOf(shoppingcar.getGoodsid())+"  "+datas.size());
 
                 if ( datas.get(datas.size()-1).getStore_id().equals(String.valueOf(shoppingcar.getStroeid()))){
                     DatasBean.GoodsBean goodsBean = new DatasBean.GoodsBean();

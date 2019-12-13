@@ -47,7 +47,7 @@ public class MessageFragment extends Fragment {
     private void inData() {
         for (int i = 0; i < 30; i++) {
 
-            mList.add(new MessageListBean("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575741490&di=92ca815588c88488f6bdd9185ab05754&imgtype=jpg&er=1&src=http%3A%2F%2Fwx3.sinaimg.cn%2Fthumb150%2F75f6e7a7gy1fe3j9r0cmpg20dc07db0t.gif", "崇杰写真店", "江崇杰最新写真上线啦！现在购买只需988", "2019/12/1", "1"));
+            mList.add(new MessageListBean("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575741490&di=92ca815588c88488f6bdd9185ab05754&imgtype=jpg&er=1&src=http%3A%2F%2Fwx3.sinaimg.cn%2Fthumb150%2F75f6e7a7gy1fe3j9r0cmpg20dc07db0t.gif", "崇杰小店店", "江崇杰最新商品上线啦！现在购买只需988", "2019/12/1", "1"));
         }
     }
 

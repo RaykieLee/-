@@ -276,8 +276,9 @@ public class ShoppingCart extends Fragment {
                 refreshLayout.getLayout().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        initDelete();
-                        refreshLayout.finishRefresh();
+                       // initDelete();
+                        //refreshLayout.finishRefresh();
+                        initData();
                     }
                 }, 2000);
             }
@@ -289,7 +290,8 @@ public class ShoppingCart extends Fragment {
                 refreshLayout.getLayout().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        refreshlayout.finishLoadmore();
+                       // refreshlayout.finishLoadmore();
+                        initData();
                     }
                 }, 2000);
             }

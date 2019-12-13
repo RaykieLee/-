@@ -2,6 +2,7 @@ package com.example.mall.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -54,11 +55,12 @@ public class CommodityRecyclerlistAdapter extends RecyclerView.Adapter<Commodity
         holder.commodityName.setText(goods.getName());
         holder.commodityDescribe.setText(goods.getDetails());
         holder.commodityPrice.setText(String.valueOf(goods.getPrice()));
-        //todo 关于图片加载，建议使用Glide，一个开源的图片加载和缓存处理的第三方框架，这里就不给大家演示了，后续会专门出一篇Glide的使用文章
+
 //        String url=getContext().getApplicationContext().getResources().getString(R.string.api_url)+"/getImage?+"+goods.getImageid();
-//        Glide.with(holder.itemView)
-//                .load(url)
-//                .into(holder.itemImg);
+        Glide.with(holder.itemView)
+                .load(R.mipmap.goods_pic)
+                .into(holder.itemImg);
+        holder.itemImg.setImageURI( Uri.parse("res:///" + R.mipmap.goods_pic));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

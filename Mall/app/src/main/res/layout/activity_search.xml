@@ -46,8 +46,10 @@
                         android:scaleType="fitEnd"
                         app:srcCompat="@drawable/ic_action_search_white"/>
             </com.xuexiang.xui.widget.layout.XUILinearLayout>
-
-            <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
                     android:id="@+id/history_flowlayout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -57,6 +59,8 @@
                     app:ftl_check_mode="multi"
                     app:ftl_entries="@array/tags_values"
                     app:ftl_selecteds="@array/tags_selects_values"/>
+            </HorizontalScrollView>
+
         </LinearLayout>
 
     </com.xuexiang.xui.widget.searchview.MaterialSearchView>

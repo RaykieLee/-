@@ -31,7 +31,6 @@ public class mineFragment extends Fragment {
     private View view;//得到碎片对应的布局文件,方便后续使用
     Unbinder unbinder;
 
-    //记住一定要重写onCreateView方法
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

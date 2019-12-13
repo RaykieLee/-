@@ -25,6 +25,10 @@ import com.xuexiang.xui.widget.picker.widget.OptionsPickerView;
 import com.xuexiang.xui.widget.picker.widget.builder.OptionsPickerBuilder;
 import com.xuexiang.xui.widget.picker.widget.listener.OnOptionsSelectListener;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -125,7 +129,7 @@ public class RegisteActivity extends AppCompatActivity {
             SnackbarUtils.Short(view, "请输入正确的信息").warning().radius(30, 1, Color.GRAY).show();
         }else{
             mMiniLoadingDialog.show();
-            apiStores.registered(accounttext,passwordtext,nametext,sextext,tel,adresstext,"null")        //获取Observable对象
+            apiStores.registered(accounttext,md5(passwordtext),nametext,sextext,tel,adresstext,"null")        //获取Observable对象
                     .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
                     .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
                     .subscribe(new Subscriber<CommonResult>() {
@@ -161,4 +165,24 @@ public class RegisteActivity extends AppCompatActivity {
                     });
         }
     }
+    public static String md5(String content) {
+        byte[] hash;
+        try {
+            hash = MessageDigest.getInstance("MD5").digest(content.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("NoSuchAlgorithmException",e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("UnsupportedEncodingException", e);
+        }
+
+        StringBuilder hex = new StringBuilder(hash.length * 2);
+        for (byte b : hash) {
+            if ((b & 0xFF) < 0x10){
+                hex.append("0");
+            }
+            hex.append(Integer.toHexString(b & 0xFF));
+        }
+        return hex.toString();
+    }
+
 }

@@ -23,6 +23,7 @@ import com.example.mall.bean.User;
 import com.example.mall.util.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.xuexiang.xui.adapter.listview.OnListItemListener;
 import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.utils.SnackbarUtils;
 import com.xuexiang.xui.utils.WidgetUtils;
@@ -202,9 +203,25 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemSelect(FlowTagLayout parent, int position, List<Integer> selectedList) {
                 inRecyclerData(tagAdapter.getItem(position));
+//                SnackbarUtils.Short(historyFlowlayout, tagAdapter.getItem(position))
+//                        .danger()
+//                        .radius(30, 1, Color.GRAY)
+//                        .show();
                // XToastUtils.toast(getSelectedText(parent, selectedList));
             }
         });
+//        tagAdapter.setOnListItemListener(new OnListItemListener<String>() {
+//            @Override
+//            public void onItemClick(int position, String model, int tag) {
+//                inRecyclerData(tagAdapter.getItem(position));
+//            }
+//
+//            @Override
+//            public void onItemLongClick(int position, String model, int tag) {
+//                inRecyclerData(tagAdapter.getItem(position));
+//
+//            }
+//        });
         //tagAdapter.setSelectedPositions(2, 3, 4);
     }
 //    private void replaceFragment(SearchViewFragment searchViewFragment) {

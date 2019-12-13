@@ -151,7 +151,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements View.OnCli
                     choiceParameterDialog = new ChoiceParameterDialog(this, Generater.GenerateParam());
                 }
                 choiceParameterDialog.tvConfirm.setBackgroundColor(Color.parseColor("#FF9800"));
-                choiceParameterDialog.tvConfirm.setText("收藏");
+                choiceParameterDialog.tvConfirm.setText("加入购物车");
                 choiceParameterDialog.show();
                 choiceParameterDialog.setSelectedListener(new ChoiceParameterDialog.SelectedListener() {
                     @Override
