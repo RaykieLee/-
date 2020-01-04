@@ -1,8 +1,8 @@
 package com.example.mall.utils;
 
 
-import com.example.mall.entity.QueueEnum;
 
+import com.example.mall.entity.QueueEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;

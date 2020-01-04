@@ -30,8 +30,6 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     @Autowired
     private UserExample userExample;
     @Autowired
-    private User user;
-    @Autowired
     private UserMapper userMapper;
     @Value("${redis.key.prefix.authCode}")
     private String REDIS_KEY_PREFIX_AUTH_CODE;
@@ -82,6 +80,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
         userExample.createCriteria().andTelEqualTo(tel);
         List<User> userList= userMapper.selectByExample( userExample );
         if(!(userList.size()==0)){
+            User user= new User();
             user.setAccount(account);
             user.setPassword(password);
             user.setName(name);

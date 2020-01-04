@@ -1,11 +1,7 @@
 package com.example.mall.Service;
 
 
-import com.example.mall.entity.OmsOrder;
-import com.example.mall.entity.OmsOrderItem;
 import com.example.mall.entity.Shoppingcar;
-import com.example.mall.utils.CommonResult;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

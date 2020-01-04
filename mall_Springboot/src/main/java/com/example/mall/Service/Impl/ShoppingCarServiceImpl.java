@@ -1,19 +1,14 @@
 package com.example.mall.Service.Impl;
 
 
-import com.example.mall.Service.RedisService;
 import com.example.mall.Service.ShoppingCarService;
 import com.example.mall.entity.Shoppingcar;
 import com.example.mall.entity.ShoppingcarExample;
 import com.example.mall.mapper.ShoppingcarMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * shoppingcar操作Service的实现类

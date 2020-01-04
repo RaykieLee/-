@@ -1,12 +1,10 @@
 package com.example.mall.controller;
 
 
-import cn.hutool.db.Page;
 import com.alibaba.fastjson.JSONObject;
 import com.example.mall.entity.Goods;
 import com.example.mall.entity.GoodsExample;
 import com.example.mall.mapper.GoodsMapper;
-import com.example.mall.mapper.GoodsSqlProvider;
 import com.example.mall.utils.CommonResult;
 
 import com.github.pagehelper.PageHelper;
@@ -27,8 +25,7 @@ import java.util.List;
 public class GoodsController {
     @Autowired
     private GoodsMapper goodsMapper;
-    @Autowired
-    private Goods goods;
+
     @ApiOperation("根据商品名获取商品列表")
     @ResponseBody
     @PostMapping("/selectGoodsbyname")
@@ -48,7 +45,7 @@ public class GoodsController {
     @ResponseBody
     @PostMapping("/getGoodsbyid")
     public CommonResult GetGoodsbyid(@RequestParam(name = "id") Integer id) {
-        goods=goodsMapper.selectByPrimaryKey(id);
+        Goods goods=goodsMapper.selectByPrimaryKey(id);
         if(!(goods==null)){
             return CommonResult.success( new JSONObject().toJSONString(goods), "查询成功");
         }else{
