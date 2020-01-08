@@ -42,8 +42,8 @@ public class UmsMemberController {
                                        @RequestParam String password) {
         return memberService.login(account,password);
     }
-    @ApiOperation("修改收货地址")
-    @RequestMapping(value = "/userup", method = RequestMethod.POST)
+    @ApiOperation("修改用户信息")
+    @RequestMapping(value = "/up", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult userup(@RequestBody User user) {
         return memberService.userup(user);

@@ -33,8 +33,18 @@ spring:
     password: 18319795400
     url: jdbc:mysql://localhost:3306/shopping?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
+  servlet:
+    multipart:
+      enabled: true #开启文件上传
+      max-file-size: 10MB #限制文件上传大小为10M
 pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+# MinIO对象存储相关配置
+minio:
+  endpoint: http://112.74.168.244:9090
+  bucketName: blog #存储桶名称
+  accessKey: minioadmin #访问的key
+  secretKey: minioadmin #访问的秘钥
