@@ -90,9 +90,25 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     }
 
     @Override
-    public List<OmsOrder> getOrder(Long id) {
-        omsOrderExample.clear();
-        omsOrderExample.createCriteria().andMemberIdEqualTo(id);
+    public OmsOrder getOrder(Long id) {
+
+        return omsOrderMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void setstate(int state, Long id) {
+        OmsOrder omsOrder = omsOrderMapper.selectByPrimaryKey(id);
+        omsOrder.setStatus(state);
+        omsOrderMapper.updateByPrimaryKey(omsOrder);
+    }
+
+    @Override
+    public List<OmsOrder> selectbystate(int state, Long id) {
+        if(state!=-1){
+            omsOrderExample.createCriteria().andStatusEqualTo(state).andIdEqualTo(id);
+        }else{
+            omsOrderExample.createCriteria().andIdEqualTo(id);
+        }
         return omsOrderMapper.selectByExample(omsOrderExample);
     }
 }

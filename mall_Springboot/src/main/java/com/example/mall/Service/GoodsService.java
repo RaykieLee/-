@@ -2,12 +2,13 @@ package com.example.mall.Service;
 
 
 import com.example.mall.entity.Goods;
+import com.example.mall.utils.CommonResult;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * redis操作Service,
- * 对象和数组都以json形式进行存储
- * Created by macro on 2018/8/7.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public interface GoodsService {
     /**
      * 存储数据
@@ -15,5 +16,5 @@ public interface GoodsService {
      */
     Goods select(Integer id);
 
-
+     List<Goods> Selectbyname(String name);
 }

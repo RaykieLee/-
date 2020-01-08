@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 会员登录注册管理Controller
+ * 用户登录注册管理Controller
  * Created by macro on 2018/8/3.
  */
 @Controller

@@ -27,9 +27,14 @@ public interface OmsPortalOrderService {
     @Transactional
     void cancelOrder(Long orderId);
 
-    List<OmsOrder> getOrder(Long id);
+    OmsOrder getOrder(Long id);
 
     List<OmsOrderItem> getOrderItem(Long id);
 
     Object uporderstate(Long id, Integer state);
+
+    void setstate(int state, Long id);
+
+    List<OmsOrder> selectbystate(int state, Long id);
+
 }

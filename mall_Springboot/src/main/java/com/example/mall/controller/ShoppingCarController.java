@@ -39,14 +39,24 @@ public class ShoppingCarController {
     @RequestMapping(value = "/getCar", method = RequestMethod.POST)
     @ResponseBody
     public ShoppingCarDataBean getCar(@RequestParam Integer id) {
-          List<DatasBean> datas=new ArrayList<>();
-
         List<Shoppingcar> shoppingcars = shoppingCarService.getCar(id);
+        List<DatasBean> datas=shoppingcartodatas(shoppingcars);
+        shoppingCarDataBean.setCode(200);
+        shoppingCarDataBean.setDatas(datas);
+        return shoppingCarDataBean;
+    }
 
 
+    @ApiOperation("添加购物车物品")
+    @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
+    @ResponseBody
+    public void addGoods(@RequestBody Shoppingcar shoppingCar) {
+        //return shoppingCarService.addGoods(shoppingCar);
+    }
+    private List<DatasBean> shoppingcartodatas(List<Shoppingcar> shoppingcars) {
+        List<DatasBean> datas=new ArrayList<>();
         for (Shoppingcar shoppingcar:shoppingcars
-             ) {
-
+        ) {
             if(datas.size()==0){
                 DatasBean.GoodsBean goodsBean = new DatasBean.GoodsBean();
                 goodsBean.setGoods_id(String.valueOf(shoppingcar.getGoodsid()));
@@ -64,7 +74,7 @@ public class ShoppingCarController {
                 datasBean.setStore_name(shoppingcar.getStroename());
                 datas.add(datasBean);
             }else {
-               // logger.info(datas.get(datas.size()-1).getStore_id()+"  "+String.valueOf(shoppingcar.getGoodsid())+"  "+datas.size());
+                // logger.info(datas.get(datas.size()-1).getStore_id()+"  "+String.valueOf(shoppingcar.getGoodsid())+"  "+datas.size());
 
                 if ( datas.get(datas.size()-1).getStore_id().equals(String.valueOf(shoppingcar.getStroeid()))){
                     DatasBean.GoodsBean goodsBean = new DatasBean.GoodsBean();
@@ -94,16 +104,7 @@ public class ShoppingCarController {
                 }
             }
         }
-        shoppingCarDataBean.setCode(200);
-        shoppingCarDataBean.setDatas(datas);
-        return shoppingCarDataBean;
-    }
-
-    @ApiOperation("添加购物车物品")
-    @RequestMapping(value = "/addGoods", method = RequestMethod.POST)
-    @ResponseBody
-    public void addGoods(@RequestBody Shoppingcar shoppingCar) {
-        //return shoppingCarService.addGoods(shoppingCar);
+        return  datas;
     }
 
 }

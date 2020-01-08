@@ -2,6 +2,7 @@ package com.example.mall.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.mall.Service.Impl.GoodsServiceImpl;
 import com.example.mall.entity.Goods;
 import com.example.mall.entity.GoodsExample;
 import com.example.mall.mapper.GoodsMapper;
@@ -22,19 +23,17 @@ import java.util.List;
  * */
 @Api(tags = "PmsBrandController", description = "商品管理")
 @Controller
-public class GoodsController {
+    public class GoodsController {
     @Autowired
     private GoodsMapper goodsMapper;
-
+    @Autowired
+    private GoodsServiceImpl goodsService;
     @ApiOperation("根据商品名获取商品列表")
     @ResponseBody
     @PostMapping("/selectGoodsbyname")
     public CommonResult SelectGoodsbyname(@RequestParam(name = "name") String name) {
-        GoodsExample goodsExample=new GoodsExample();
-        PageHelper.startPage(1, 2);
-        goodsExample.createCriteria().andNameLike('%'+ name +'%');
-       // goodsExample.setOrderByClause("salesvolume");
-        List<Goods> goodsList=goodsMapper.selectByExample( goodsExample );
+        PageHelper.startPage(1, 5);
+        List<Goods> goodsList=goodsService.Selectbyname(name);
         if(!(goodsList.size()==0)){
             return CommonResult.success( goodsList, "查询成功");
         }else{
@@ -45,25 +44,25 @@ public class GoodsController {
     @ResponseBody
     @PostMapping("/getGoodsbyid")
     public CommonResult GetGoodsbyid(@RequestParam(name = "id") Integer id) {
-        Goods goods=goodsMapper.selectByPrimaryKey(id);
+        Goods goods=goodsService.select(id);
         if(!(goods==null)){
             return CommonResult.success( new JSONObject().toJSONString(goods), "查询成功");
         }else{
             return CommonResult.failed(  "(#`O′)不存在该商品");
         }
     }
-    @ApiOperation("获取商品销量")
-    @ResponseBody
-    @PostMapping("/getGoodsbydesc")
-    public CommonResult GetGoodsbydesc(@RequestParam(name = "num") Integer num) {
-        GoodsExample goodsExample = new GoodsExample();
-        goodsExample.setOrderByClause("salesvolume DESC" );
-        PageHelper.startPage(0, num);
-        List<Goods> goodsList =goodsMapper.selectByExample(goodsExample);
-        if(!(goodsList==null)){
-            return CommonResult.success( new JSONObject().toJSONString(goodsList), "查询成功");
-        }else{
-            return CommonResult.failed(  "(#`O′)不存在该商品");
-        }
-    }
+//    @ApiOperation("获取商品销量")
+//    @ResponseBody
+//    @PostMapping("/getGoodsbydesc")
+//    public CommonResult GetGoodsbydesc(@RequestParam(name = "num") Integer num) {
+//        GoodsExample goodsExample = new GoodsExample();
+//        goodsExample.setOrderByClause("salesvolume DESC" );
+//        PageHelper.startPage(0, num);
+//        List<Goods> goodsList =goodsMapper.selectByExample(goodsExample);
+//        if(!(goodsList==null)){
+//            return CommonResult.success( new JSONObject().toJSONString(goodsList), "查询成功");
+//        }else{
+//            return CommonResult.failed(  "(#`O′)不存在该商品");
+//        }
+//    }
 }

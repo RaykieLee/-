@@ -1,8 +1,10 @@
 package com.example.mall.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import java.util.Date;
-
+@Component
 public class Goods implements Serializable {
     /**
      *
