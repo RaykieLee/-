@@ -1,14 +1,10 @@
 package com.example.mall.controller;
 
 
-import com.example.mall.Service.Impl.ShoppingCarServiceImpl;
 import com.example.mall.Service.ShoppingCarService;
-import com.example.mall.Service.UmsMemberService;
-import com.example.mall.entity.ShoppingCarDataBean;
-import com.example.mall.entity.ShoppingCarDataBean.*;
+import com.example.mall.Dto.ShoppingCarDto;
+import com.example.mall.Dto.ShoppingCarDto.*;
 import com.example.mall.entity.Shoppingcar;
-import com.example.mall.entity.User;
-import com.example.mall.utils.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -18,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,13 +27,13 @@ public class ShoppingCarController {
     @Autowired
     private ShoppingCarService shoppingCarService;
     @Autowired
-    private ShoppingCarDataBean shoppingCarDataBean;
+    private ShoppingCarDto shoppingCarDataBean;
     Logger logger = LoggerFactory.getLogger(ShoppingCarController.class);
 
     @ApiOperation("获取购物车信息")
     @RequestMapping(value = "/getCar", method = RequestMethod.POST)
     @ResponseBody
-    public ShoppingCarDataBean getCar(@RequestParam Integer id) {
+    public ShoppingCarDto getCar(@RequestParam Integer id) {
         List<Shoppingcar> shoppingcars = shoppingCarService.getCar(id);
         List<DatasBean> datas=shoppingcartodatas(shoppingcars);
         shoppingCarDataBean.setCode(200);

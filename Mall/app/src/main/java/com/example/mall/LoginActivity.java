@@ -14,6 +14,7 @@ import com.example.mall.Api.MyApi;
 
 import com.example.mall.bean.CommonResult;
 import com.example.mall.bean.User;
+import com.example.mall.util.HttpUtil;
 import com.xuexiang.xui.utils.SnackbarUtils;
 import com.xuexiang.xui.utils.WidgetUtils;
 import com.xuexiang.xui.widget.button.roundbutton.RoundButton;
@@ -53,13 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.registe)
     RoundButton registe;
     MiniLoadingDialog mMiniLoadingDialog ;
-    Retrofit retrofit = new Retrofit.Builder()
-            //这里建议：- Base URL: 总是以/结尾；- @Url: 不要以/开头
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//新的配置
-            .baseUrl("http://mymall.free.idcfengye.com")
-            .build();
-    MyApi apiStores = retrofit.create(MyApi.class);
+
     private String passwordtext;
     private String accounttext;
 
@@ -83,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     SnackbarUtils.Short(view, "请输入正确的账号或密码").warning().radius(30, 1, Color.GRAY).show();
                 }else{
                     mMiniLoadingDialog.show();
-                    apiStores.login(accounttext, md5(passwordtext))        //获取Observable对象
+                    HttpUtil.getInstence().login(accounttext, md5(passwordtext))        //获取Observable对象
                             .subscribeOn(Schedulers.newThread())//请求在新的线程中执行
                             .observeOn(AndroidSchedulers.mainThread())//最后在主线程中执行
                             .subscribe(new Subscriber<CommonResult<User>>() {
@@ -95,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    Log.i("wxl", "response=" + e.getMessage());
+                                    Log.i("wxl", "rresponse=" + e.getMessage());
                                     mMiniLoadingDialog.dismiss();
 
                                     //  mMiniLoadingDialog.dismiss();
@@ -130,7 +125,6 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.registe:
                 startActivity(new Intent(LoginActivity.this,RegisteActivity.class));
-
                 break;
         }
     }

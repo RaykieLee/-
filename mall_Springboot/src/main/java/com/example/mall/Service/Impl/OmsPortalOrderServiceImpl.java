@@ -105,10 +105,14 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     @Override
     public List<OmsOrder> selectbystate(int state, Long id) {
         if(state!=-1){
-            omsOrderExample.createCriteria().andStatusEqualTo(state).andIdEqualTo(id);
+            omsOrderExample.createCriteria().andStatusEqualTo(state).andMemberIdEqualTo(id);
         }else{
             omsOrderExample.createCriteria().andIdEqualTo(id);
         }
-        return omsOrderMapper.selectByExample(omsOrderExample);
+        List<OmsOrder> omsOrderList = omsOrderMapper.selectByExample(omsOrderExample);
+        for (int i = 0; i <omsOrderList.size() ; i++) {
+            omsOrderList.get(i).setOmsOrderItems(getOrderItem(omsOrderList.get(i).getId()));
+        }
+        return omsOrderList;
     }
 }

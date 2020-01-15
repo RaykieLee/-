@@ -1,7 +1,6 @@
 package com.example.mall;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,19 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.mall.Acticity.GoodsDetailActivity;
 import com.example.mall.adapter.CommodityRecyclerlistAdapter;
 import com.example.mall.adapter.FlowTagAdapter;
-import com.example.mall.adapter.MessageRecyclerlistAdapter;
-import com.example.mall.bean.CommodityBean;
 import com.example.mall.bean.CommonResult;
 import com.example.mall.bean.Goods;
-import com.example.mall.bean.MessageListBean;
-import com.example.mall.bean.User;
 import com.example.mall.util.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.xuexiang.xui.adapter.listview.OnListItemListener;
-import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.utils.SnackbarUtils;
 import com.xuexiang.xui.utils.WidgetUtils;
 import com.xuexiang.xui.widget.dialog.MiniLoadingDialog;
@@ -33,7 +27,6 @@ import com.xuexiang.xui.widget.layout.XUILinearLayout;
 import com.xuexiang.xui.widget.searchview.MaterialSearchView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,7 +35,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static com.example.mall.util.HttpUtil.apiStores;
 import static com.xuexiang.xui.XUI.getContext;
 
 
@@ -143,7 +135,6 @@ public class SearchActivity extends AppCompatActivity {
                         mMiniLoadingDialog.dismiss();
 
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         Log.i("wxl", "response=" + e.getMessage());
@@ -187,7 +178,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onclick(int position) {
 
-                Intent intent = new Intent(SearchActivity.this,GoodsDetailActivity.class);
+                Intent intent = new Intent(SearchActivity.this, GoodsDetailActivity.class);
                 Toast.makeText(getContext(),"dia",Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }

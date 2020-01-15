@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/cardview_light_background">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cardview_default_radius"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/jg_details_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingLeft="30px"
+            android:paddingRight="60px"
+            android:src="@drawable/xui_ic_return_back" />
+        <TextView
+            android:id="@+id/jg_details_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/cardview_light_background"
+            android:textSize="@dimen/cardview_default_radius" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/jg_details_recy"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/cardview_light_background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingLeft="30px"
+        android:paddingRight="30px">
+
+
+        <EditText
+            android:id="@+id/jg_details_edit"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20px"
+            android:layout_marginTop="20px"
+            android:layout_weight="1"
+
+            android:gravity="center_vertical"
+            android:hint="请输入咨询的问题"
+            android:imeOptions="actionSend"
+            android:paddingLeft="20px"
+            android:paddingRight="20px"
+            android:paddingTop="10px"
+            android:paddingBottom="10px"
+            android:singleLine="true"
+            android:textColor="@color/cardview_light_background"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/jg_details_img"
+            android:layout_width="80px"
+            android:layout_marginTop="20px"
+            android:layout_height="80px"
+            android:layout_marginLeft="20px"
+            android:src="@drawable/xui_ic_default_tip_btn" />
+
+    </LinearLayout>
+</LinearLayout>

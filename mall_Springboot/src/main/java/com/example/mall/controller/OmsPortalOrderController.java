@@ -73,6 +73,9 @@ public class OmsPortalOrderController {
     public CommonResult getbyState(@RequestParam(name = "state") int state,@RequestParam(name = "id") Long id,@RequestParam(name = "pagenum") int pagenum) {
 //        PageHelper.startPage(pagenum, pagesize);
         List<OmsOrder> omsOrders=portalOrderService.selectbystate(state,id);
+        for (int i = 0; i <omsOrders.size() ; i++) {
+
+        }
         if(!(omsOrders==null)){
             return CommonResult.success( omsOrders, "获取成功");
         }else{

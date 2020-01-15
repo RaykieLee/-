@@ -50,7 +50,6 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
         mMiniLoadingDialog= WidgetUtils.getMiniLoadingDialog(this,"发送订单中");
-
     }
 
     @OnClick(R.id.post_Order)

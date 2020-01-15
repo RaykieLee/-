@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/store_logo"
+
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/store_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/goods"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+
+            style="@style/RoundButton.Auto"
+            android:layout_marginTop="20dp"
+            android:text="取消订单"
+            app:rb_isRadiusAdjustBounds="true"/>
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+            style="@style/RoundButton.Auto"
+            android:layout_marginTop="20dp"
+            android:text="付款"
+            android:textColor="@color/xui_config_color_red"
+
+            app:rb_borderColor="@color/xui_config_color_red"
+            app:rb_isRadiusAdjustBounds="true"/>
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+
+            style="@style/RoundButton.Auto"
+            android:layout_marginTop="20dp"
+            android:text="查看物流"
+            app:rb_isRadiusAdjustBounds="true"/>
+        <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+
+            style="@style/RoundButton.Auto"
+            android:layout_marginTop="20dp"
+            android:text="评价"
+            android:textColor="@color/xui_config_color_red"
+            app:rb_borderColor="@color/xui_config_color_red"
+            app:rb_isRadiusAdjustBounds="true"/>
+
+    </LinearLayout>
+</LinearLayout>
