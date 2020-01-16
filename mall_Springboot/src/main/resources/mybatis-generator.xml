@@ -43,6 +43,9 @@
         <table tableName="oms_order_item" >
             <property name="modelOnly" value="false"/>
         </table>
+        <table tableName="file" >
+            <property name="modelOnly" value="false"/>
+        </table>
     </context>
 
 </generatorConfiguration>

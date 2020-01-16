@@ -2,11 +2,14 @@ package com.example.mall.utils;
 
 import com.example.mall.Dto.MinioUploadDto;
 import com.example.mall.controller.MinioController;
+import com.example.mall.entity.File;
+import com.example.mall.mapper.FileMapper;
 import io.minio.MinioClient;
 import io.minio.policy.PolicyType;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +31,8 @@ public class MinioUtil {
     private String ACCESS_KEY;
     @Value("${minio.secretKey}")
     private String SECRET_KEY;
+    @Autowired
+    FileMapper fileMapper;
     public Boolean upload( MultipartFile file,String BUCKET_NAME) {
         try {
             //创建一个MinIO的Java客户端
@@ -47,9 +52,13 @@ public class MinioUtil {
             // 使用putObject上传一个文件到存储桶中
             minioClient.putObject(BUCKET_NAME, objectName, file.getInputStream(), file.getContentType());
             LOGGER.info("文件上传成功!");
-            MinioUploadDto minioUploadDto = new MinioUploadDto();
-            minioUploadDto.setName(filename);
-            minioUploadDto.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
+            File file1 = new File();
+            file1.setName(filename);
+            file1.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
+//            MinioUploadDto minioUploadDto = new MinioUploadDto();
+//            minioUploadDto.setName(filename);
+//            minioUploadDto.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
+            fileMapper.insert(file1);
             return true;
         } catch (Exception e) {
             LOGGER.info("上传发生错误: {}！", e.getMessage());
