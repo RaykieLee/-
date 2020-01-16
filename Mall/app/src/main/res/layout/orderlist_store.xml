@@ -20,6 +20,7 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/goods"
+        android:layout_margin="20dp"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -28,12 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-
+            android:id="@+id/cancel_order"
             style="@style/RoundButton.Auto"
             android:layout_marginTop="20dp"
             android:text="取消订单"
             app:rb_isRadiusAdjustBounds="true"/>
         <com.xuexiang.xui.widget.button.roundbutton.RoundButton
+            android:id="@+id/pay_order"
             style="@style/RoundButton.Auto"
             android:layout_marginTop="20dp"
             android:text="付款"
@@ -42,13 +44,13 @@
             app:rb_borderColor="@color/xui_config_color_red"
             app:rb_isRadiusAdjustBounds="true"/>
         <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-
+            android:id="@+id/logistics"
             style="@style/RoundButton.Auto"
             android:layout_marginTop="20dp"
             android:text="查看物流"
             app:rb_isRadiusAdjustBounds="true"/>
         <com.xuexiang.xui.widget.button.roundbutton.RoundButton
-
+            android:id="@+id/appraise"
             style="@style/RoundButton.Auto"
             android:layout_marginTop="20dp"
             android:text="评价"
