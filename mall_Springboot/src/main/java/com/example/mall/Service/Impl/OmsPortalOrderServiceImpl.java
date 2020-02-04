@@ -32,10 +32,8 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     private OmsOrderMapper omsOrderMapper;
     @Autowired
     private OmsOrderItemMapper omsOrderItemMapper;
-    @Autowired
-    private OmsOrderItemExample omsOrderItemExample;
-    @Autowired
-    private OmsOrderExample omsOrderExample;
+
+
     @Autowired
     private GoodsMapper goodsMapper;
 
@@ -69,7 +67,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
     public void cancelOrder(Long orderId) {
         //todo 执行一系类取消订单操作，具体参考mall项目
         omsOrderMapper.deleteByPrimaryKey(orderId);
-        omsOrderItemExample.clear();
+        OmsOrderItemExample omsOrderItemExample = new OmsOrderItemExample();
         omsOrderItemExample.createCriteria().andOrderIdEqualTo(orderId);
         omsOrderItemMapper.deleteByExample(omsOrderItemExample);
         LOGGER.info("process cancelOrder orderId:{}",orderId);
@@ -85,6 +83,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
 
     @Override
     public List<OmsOrderItem> getOrderItem(Long id) {
+        OmsOrderItemExample omsOrderItemExample = new OmsOrderItemExample();
         omsOrderItemExample.createCriteria().andOrderIdEqualTo(id);
         return  omsOrderItemMapper.selectByExample(omsOrderItemExample);
     }
@@ -104,6 +103,7 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
 
     @Override
     public List<OmsOrder> selectbystate(int state, Long id) {
+        OmsOrderExample omsOrderExample=new OmsOrderExample();
         if(state!=-1){
             omsOrderExample.createCriteria().andStatusEqualTo(state).andMemberIdEqualTo(id);
         }else{

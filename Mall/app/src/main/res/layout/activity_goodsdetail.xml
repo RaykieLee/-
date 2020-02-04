@@ -117,16 +117,16 @@
                             android:textColor="#27a366"
                             android:textSize="28sp" />
 
-                        <TextView
-                            android:id="@+id/tv_qpl"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="25dp"
-                            android:text="1件起批"
-                            android:layout_toRightOf="@+id/tv_price"
-                            android:textColor="#999"
-                            android:textSize="11sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_qpl"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginLeft="10dp"-->
+<!--                            android:layout_marginTop="25dp"-->
+<!--                            android:text="1件起批"-->
+<!--                            android:layout_toRightOf="@+id/tv_price"-->
+<!--                            android:textColor="#999"-->
+<!--                            android:textSize="11sp" />-->
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -136,22 +136,22 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp">
 
-                        <TextView
-                            android:id="@+id/tv_location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentRight="true"
-                            android:text="江苏徐州"
-                            android:textColor="#999"
-                            android:textSize="12sp" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_location"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentBottom="true"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:text="江苏徐州"-->
+<!--                            android:textColor="#999"-->
+<!--                            android:textSize="12sp" />-->
 
                         <TextView
                             android:id="@+id/tv_sold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="已售20"
+                            android:text="已售"
                             android:textColor="#999"
                             android:textSize="12sp" />
                     </RelativeLayout>
@@ -407,7 +407,7 @@
         <TextView
             android:id="@+id/tv_title_"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
             android:background="#fff"
             android:ellipsize="end"
             android:maxLines="2"

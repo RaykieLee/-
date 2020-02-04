@@ -8,22 +8,22 @@ import java.util.List;
 
 public class Param {
 
-    private List<SpecBean> spec;
-    private List<SkuBean> sku;
+    private List<Goods.GoodsSpecListBean> spec;
+    private List<Goods.GoodsSkuListBean> sku;
 
-    public List<SpecBean> getSpec() {
+    public List<Goods.GoodsSpecListBean> getSpec() {
         return spec;
     }
 
-    public void setSpec(List<SpecBean> spec) {
+    public void setSpec(List<Goods.GoodsSpecListBean> spec) {
         this.spec = spec;
     }
 
-    public List<SkuBean> getSku() {
+    public List<Goods.GoodsSkuListBean> getSku() {
         return sku;
     }
 
-    public void setSku(List<SkuBean> sku) {
+    public void setSku(List<Goods.GoodsSkuListBean> sku) {
         this.sku = sku;
     }
 

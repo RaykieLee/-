@@ -18,11 +18,11 @@ import java.util.List;
 public class ShoppingCarServiceImpl implements ShoppingCarService {
     @Autowired
     ShoppingcarMapper shoppingcarMapper;
-    @Autowired
-    ShoppingcarExample shoppingcarExample;
+
 
     @Override
     public List<Shoppingcar>  getCar(Integer userid) {
+        ShoppingcarExample shoppingcarExample = new ShoppingcarExample();
         shoppingcarExample.createCriteria().andUseridEqualTo(userid);
         String orderByshroeid = "stroeid DESC";
         shoppingcarExample.setOrderByClause( orderByshroeid );  // 设置通过某个字段排序的条件

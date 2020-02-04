@@ -1,6 +1,9 @@
 package com.example.mall.controller;
 
 import com.example.mall.Dto.MinioUploadDto;
+import com.example.mall.Service.FileService;
+import com.example.mall.entity.File;
+import com.example.mall.mapper.FileMapper;
 import com.example.mall.utils.CommonResult;
 import io.minio.MinioClient;
 import io.minio.policy.PolicyType;
@@ -9,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 
 
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,37 +42,31 @@ public class MinioController {
     private String ACCESS_KEY;
     @Value("${minio.secretKey}")
     private String SECRET_KEY;
-
+    @Autowired
+    FileMapper fileMapper;
+    @Autowired
+    FileService  fileService;
     @ApiOperation("文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult upload(@RequestParam("file") MultipartFile file) {
-        try {
-            //创建一个MinIO的Java客户端
-            MinioClient minioClient = new MinioClient(ENDPOINT, ACCESS_KEY, SECRET_KEY);
-            boolean isExist = minioClient.bucketExists(BUCKET_NAME);
-            if (isExist) {
-                LOGGER.info("存储桶已经存在！");
-            } else {
-                //创建存储桶并设置只读权限
-                minioClient.makeBucket(BUCKET_NAME);
-                minioClient.setBucketPolicy(BUCKET_NAME, "*.*", PolicyType.READ_ONLY);
-            }
-            String filename = file.getOriginalFilename();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            // 设置存储对象名称
-            String objectName = sdf.format(new Date()) + "/" + filename;
-            // 使用putObject上传一个文件到存储桶中
-            minioClient.putObject(BUCKET_NAME, objectName, file.getInputStream(), file.getContentType());
-            LOGGER.info("文件上传成功!");
-            MinioUploadDto minioUploadDto = new MinioUploadDto();
-            minioUploadDto.setName(filename);
-            minioUploadDto.setUrl(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
-            return CommonResult.success(minioUploadDto);
-        } catch (Exception e) {
-            LOGGER.info("上传发生错误: {}！", e.getMessage());
+        File file1 =fileService.upload(file);
+        if(file1.getUrl()==null) {
+            return CommonResult.failed();
+        }else {
+            return CommonResult.success(file1);
         }
-        return CommonResult.failed();
+    }
+    @ApiOperation("获取文件url链接")
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult get(@RequestParam Integer id) {
+        File file1 =fileService.getUrl(id);
+        if(file1==null) {
+            return CommonResult.failed();
+        }else {
+            return CommonResult.success(file1.getUrl());
+        }
     }
 
     @ApiOperation("文件删除")

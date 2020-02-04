@@ -35,7 +35,7 @@ import java.util.List;
         PageHelper.startPage(1, 5);
         List<Goods> goodsList=goodsService.Selectbyname(name);
         if(!(goodsList.size()==0)){
-            return CommonResult.success( goodsList, "查询成功");
+            return CommonResult.success(goodsList, "查询成功");
         }else{
             return CommonResult.failed(  "(#`O′)未搜索到该商品 请换关键词");
         }
@@ -46,7 +46,7 @@ import java.util.List;
     public CommonResult GetGoodsbyid(@RequestParam(name = "id") Integer id) {
         Goods goods=goodsService.select(id);
         if(!(goods==null)){
-            return CommonResult.success( new JSONObject().toJSONString(goods), "查询成功");
+            return CommonResult.success( goods, "查询成功");
         }else{
             return CommonResult.failed(  "(#`O′)不存在该商品");
         }

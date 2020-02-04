@@ -38,5 +38,11 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("/order/inomsOrder")
     Observable<CommonResult> inomsOrder(@Body OmsOrder omsOrder);
+    @FormUrlEncoded
+    @POST("/getGoodsbyid")
+    Observable<CommonResult<Goods>> getGoodsbyid(@Field("id") Integer  id);
+    @FormUrlEncoded
+    @POST("/minio/get")
+    Observable<CommonResult> getImageurl(@Field("id") Integer  id);
 
 }

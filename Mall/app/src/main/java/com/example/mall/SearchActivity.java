@@ -179,6 +179,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onclick(int position) {
 
                 Intent intent = new Intent(SearchActivity.this, GoodsDetailActivity.class);
+                intent.putExtra("Goodid",mList.get(position).getId());
                 Toast.makeText(getContext(),"dia",Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }

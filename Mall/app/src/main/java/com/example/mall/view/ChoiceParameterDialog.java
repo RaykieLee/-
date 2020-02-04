@@ -25,7 +25,8 @@ import android.widget.TextView;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.mall.R;
-import com.example.mall.bean.Param;
+import com.example.mall.bean.Goods;
+import com.example.mall.bean.Goods.GoodsSkuListBean;
 import com.example.mall.bean.ParameterEntity;
 import com.example.mall.util.Utils;
 
@@ -51,14 +52,14 @@ public class ChoiceParameterDialog extends Dialog {
     private ImageButton ibAdd;
     private EditText etCount;
     private View botttom;
-    private List<Param.SpecBean> specList;
-    private List<Param.SkuBean> skuList;
+    private List<Goods.GoodsSpecListBean> specList;
+    private List<Goods.GoodsSkuListBean> skuList;
     private RecyclerView rv;
     private SpecAdapter adapter;
     private HashMap<Integer, List<ParameterEntity>> outMap;
     private boolean allSelected = false;
     private SelectedListener selectedListener;
-    private Param.SkuBean selectedSku;
+    private Goods.GoodsSkuListBean selectedSku;
     public TextView tvConfirm;
     private int qpl = 1;
     private double price;
@@ -71,11 +72,11 @@ public class ChoiceParameterDialog extends Dialog {
         this.selectedListener = selectedListener;
     }
 
-    public ChoiceParameterDialog(Context context, Param param) {
+    public ChoiceParameterDialog(Context context, Goods goods) {
         super(context, R.style.dialog);
         this.context = context;
-        this.skuList = param.getSku();
-        this.specList = param.getSpec();
+        this.skuList = goods.getGoodsSkuList();
+        this.specList = goods.getGoodsSpecList();
         init();
         setData();
     }
@@ -83,10 +84,10 @@ public class ChoiceParameterDialog extends Dialog {
     private void setData() {
         outMap = new HashMap<>();
         for (int i = 0; i < specList.size(); i++) {
-            Param.SpecBean specBean = specList.get(i);
+            Goods.GoodsSpecListBean specBean = specList.get(i);
             List<ParameterEntity> innerList = new ArrayList();
-            for (int j = 0; j < specBean.getSpecValue().size(); j++) {
-                ParameterEntity entity = new ParameterEntity(specBean.getSpecValue().get(j));
+            for (int j = 0; j < specBean.getSpervalue().size(); j++) {
+                ParameterEntity entity = new ParameterEntity(specBean.getSpervalue().get(j));
                 entity.selected = false;
                 innerList.add(entity);
             }
@@ -187,8 +188,8 @@ public class ChoiceParameterDialog extends Dialog {
                                 hasChanged = false;
                             }
                         }
-                        if (current >= selectedSku.getInventoryCount()) {
-                            current = selectedSku.getInventoryCount();
+                        if (current >= selectedSku.getInventorycount()) {
+                            current = selectedSku.getInventorycount();
                             ibAdd.setEnabled(false);
                         }
                         if (!hasChanged) {
@@ -242,9 +243,9 @@ public class ChoiceParameterDialog extends Dialog {
 
 
     class SpecAdapter extends RecyclerView.Adapter<SpecAdapter.ViewHolder> {
-        private List<Param.SpecBean> data;
+        private List<Goods.GoodsSpecListBean> data;
 
-        public SpecAdapter(List<Param.SpecBean> data) {
+        public SpecAdapter(List<Goods.GoodsSpecListBean> data) {
             this.data = data;
         }
 
@@ -258,13 +259,13 @@ public class ChoiceParameterDialog extends Dialog {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Param.SpecBean specBean = data.get(position);
-            holder.tvTile.setText(specBean.getSpecName());
+            Goods.GoodsSpecListBean specBean = data.get(position);
+            holder.tvTile.setText(specBean.getSpecname());
             holder.flContainer.setHorizontalSpacing(30);
             holder.flContainer.setVerticalSpacing(20);
             ArrayList<ParameterEntity> list = new ArrayList<>();
-            for (int i = 0; i < specBean.getSpecValue().size(); i++) {
-                ParameterEntity entity = new ParameterEntity(specBean.getSpecValue().get(i));
+            for (int i = 0; i < specBean.getSpervalue().size(); i++) {
+                ParameterEntity entity = new ParameterEntity(specBean.getSpervalue().get(i));
                 entity.enable = computEnable(position, entity.name);
                 entity.selected = outMap.get(position).get(i).selected;
                 list.add(entity);
@@ -312,10 +313,10 @@ public class ChoiceParameterDialog extends Dialog {
                 selectedMap.put(entry.getKey(), selected);
             }
         }
-        ArrayList<Param.SkuBean> matchedSku = new ArrayList<>();//筛选出符合 选中要求的sku
+        ArrayList<Goods.GoodsSkuListBean> matchedSku = new ArrayList<>();//筛选出符合 选中要求的sku
         for (int i = 0; i < skuList.size(); i++) {
             boolean matche = true;
-            Param.SkuBean sku = skuList.get(i);
+            Goods.GoodsSkuListBean sku = skuList.get(i);
             Iterator<Map.Entry<Integer, String>> e = selectedMap.entrySet().iterator();
             while (e.hasNext()) {
                 Map.Entry<Integer, String> next = e.next();
@@ -329,8 +330,8 @@ public class ChoiceParameterDialog extends Dialog {
         }
         //遍历符合要求的sku，如果sku中有该选项，且库存不为零，则可选
         for (int i = 0; i < matchedSku.size(); i++) {
-            Param.SkuBean sku = matchedSku.get(i);
-            if (sku.getSpec().get(position).equals(spacValue) && sku.getInventoryCount() >= qpl) {
+            Goods.GoodsSkuListBean sku = matchedSku.get(i);
+            if (sku.getSpec().get(position).equals(spacValue) && sku.getInventorycount() >= qpl) {
                 result = true;
             }
         }
@@ -453,10 +454,10 @@ public class ChoiceParameterDialog extends Dialog {
                     enable = false;
                 }
             }
-             if (current >= selectedSku.getInventoryCount()) {
-                current = selectedSku.getInventoryCount();
+             if (current >= selectedSku.getInventorycount()) {
+                current = selectedSku.getInventorycount();
                 ibAdd.setEnabled(false);
-                if (current > selectedSku.getInventoryCount()) {
+                if (current > selectedSku.getInventorycount()) {
                     enable = false;
                 }
             }
@@ -476,6 +477,6 @@ public class ChoiceParameterDialog extends Dialog {
     public interface SelectedListener {
         void onSlectedChanged(boolean allSelected, String param);
 
-        void onComfirm(int count, Param.SkuBean selectedSku, double price);
+        void onComfirm(int count,Goods.GoodsSkuListBean selectedSku, double price);
     }
 }

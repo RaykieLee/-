@@ -28,8 +28,6 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     @Autowired
     private RedisService redisService;
     @Autowired
-    private UserExample userExample;
-    @Autowired
     private UserMapper userMapper;
     @Value("${redis.key.prefix.authCode}")
     private String REDIS_KEY_PREFIX_AUTH_CODE;
@@ -64,7 +62,8 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     }
     @Override
     public CommonResult login(String account, String password) {
-        userExample.clear();
+
+        UserExample userExample= new UserExample();
         userExample.createCriteria().andAccountEqualTo(account).andPasswordEqualTo(password);;
         List<User> userList= userMapper.selectByExample( userExample );
       //  logger.info(String.valueOf(userList.size())+account);
@@ -77,6 +76,7 @@ public class UmsMemberServiceImpl implements UmsMemberService {
 
     @Override
     public CommonResult registered(String account, String password, String name, String sex, String tel, String address, String headsculpture) {
+        UserExample userExample= new UserExample();
         userExample.createCriteria().andTelEqualTo(tel);
         List<User> userList= userMapper.selectByExample( userExample );
         if(!(userList.size()==0)){

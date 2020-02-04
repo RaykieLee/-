@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.mall.Service.OmsPortalOrderService;
 import com.example.mall.entity.OmsOrder;
 
+import com.example.mall.entity.OmsOrderItemExample;
 import com.example.mall.mapper.GoodsMapper;
 import com.example.mall.mapper.OmsOrderItemMapper;
 import com.example.mall.mapper.OmsOrderMapper;
@@ -74,7 +75,10 @@ public class OmsPortalOrderController {
 //        PageHelper.startPage(pagenum, pagesize);
         List<OmsOrder> omsOrders=portalOrderService.selectbystate(state,id);
         for (int i = 0; i <omsOrders.size() ; i++) {
-
+            OmsOrder omsOrder = omsOrders.get(i);
+            OmsOrderItemExample omsOrderItemExample = new OmsOrderItemExample();
+            omsOrderItemExample.createCriteria().andOrderIdEqualTo(omsOrder.getId());
+            omsOrder.setOmsOrderItems(omsOrderItemMapper.selectByExample(omsOrderItemExample));
         }
         if(!(omsOrders==null)){
             return CommonResult.success( omsOrders, "获取成功");

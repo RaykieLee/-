@@ -23,14 +23,15 @@ import java.util.List;
 public class DiscussController {
     @Autowired
     private DiscussMapper discussMapper;
-    @Autowired
-    private DiscussExample discussExample;
+
 
     @ApiOperation("根据商品id获取评论列表")
     @ResponseBody
     @PostMapping("/getGoodDiscuss")
     public CommonResult getGoodDiscuss(@RequestParam(name = "id") Integer id) {
+
         PageHelper.startPage(0, 10);
+        DiscussExample discussExample = new DiscussExample();
         discussExample.createCriteria().andGoodsidEqualTo(id);
         List<Discuss> discussList=discussMapper.selectByExample( discussExample );
         if(!(discussList.size()==0)){
@@ -44,6 +45,7 @@ public class DiscussController {
     @PostMapping("/getUserbyname")
     public CommonResult SelectGoodsbyname(@RequestParam(name = "id") Integer id) {
         PageHelper.startPage(0, 10);
+        DiscussExample discussExample = new DiscussExample();
         discussExample.createCriteria().andUseridEqualTo(id);
         List<Discuss> discussList=discussMapper.selectByExample( discussExample );
         if(!(discussList.size()==0)){

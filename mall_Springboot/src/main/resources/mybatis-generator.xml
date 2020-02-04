@@ -34,6 +34,9 @@
         <table tableName="goods_sku" >
             <property name="modelOnly" value="false"/>
         </table>
+        <table tableName="goods_spec" >
+            <property name="modelOnly" value="false"/>
+        </table>
         <table tableName="oms_order" >
             <property name="modelOnly" value="false"/>
         </table>

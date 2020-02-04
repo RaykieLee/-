@@ -38,6 +38,8 @@ public class MinioUtil {
             //创建一个MinIO的Java客户端
             MinioClient minioClient = new MinioClient(ENDPOINT, ACCESS_KEY, SECRET_KEY);
             boolean isExist = minioClient.bucketExists(BUCKET_NAME);
+            LOGGER.info("上传发生错误: {}！",ENDPOINT);
+
             if (isExist) {
                 LOGGER.info("存储桶已经存在！");
             } else {
@@ -45,6 +47,8 @@ public class MinioUtil {
                 minioClient.makeBucket(BUCKET_NAME);
                 minioClient.setBucketPolicy(BUCKET_NAME, "*.*", PolicyType.READ_ONLY);
             }
+            LOGGER.info("上传发生错误: {}！",file.getOriginalFilename());
+
             String filename = file.getOriginalFilename();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             // 设置存储对象名称
@@ -61,7 +65,7 @@ public class MinioUtil {
             fileMapper.insert(file1);
             return true;
         } catch (Exception e) {
-            LOGGER.info("上传发生错误: {}！", e.getMessage());
+            LOGGER.info("上传发生错误: {}！", ENDPOINT);
             return  false;
         }
     }
