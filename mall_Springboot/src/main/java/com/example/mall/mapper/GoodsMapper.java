@@ -34,7 +34,7 @@ public interface GoodsMapper {
      */
     @Update({
             "update goods",
-            "set score=score+#{num,jdbcType=INTEGER}",
+            "set salesvolume=salesvolume+#{num,jdbcType=INTEGER}",
             "where id = #{id,jdbcType=INTEGER}"
     })
     int addsalesvolume(Long id, Integer num);
